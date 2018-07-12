@@ -1,0 +1,85 @@
+.sidenav-container {
+  background-color: #E8E8DE;
+}
+.sidenav {
+  width: 280px;
+  background-color: #E8E8DE;
+    color: rgba(0,0,0,.87);
+    direction: ltr;
+    font-family: 'Roboto',arial,sans-serif;
+    font-size: 15px;
+    margin-top: 64px;
+}
+.sidenav-content {
+  background-color: #E8E8DE;
+
+}
+.mat-toolbar {
+  background-color: #ffbb00;
+  position: fixed;
+  z-index:999;
+  flex: 1 0 auto;
+  padding: 8px;
+  color: black;
+  box-sizing: border-box;
+  width: 100%;
+}
+.item {
+  cursor: default;
+    font-size: 13px;
+    padding: 15px 24px 10px;
+
+    padding-left: 32px;
+    display: inline-block;
+    line-height: 40px;
+    vertical-align: top;
+    width: 176px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+}
+.item2 {
+  cursor: default;
+    font-size: 13px;
+   
+    display: inline-block;
+    line-height: 40px;
+    vertical-align: top;
+    width: 176px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+}
+.mat-icon-button {
+  background-color: #ffbb00;
+}
+.icon {
+  color: #616161;
+  
+}
+img {
+  border-radius: 50%;
+}
+.my {
+  display: inline-block;
+    font-family: 'Product Sans',Arial,sans-serif;
+    font-weight: 550;
+    font-size: 22px;
+    line-height: 24px;
+    padding-left: 8px;
+    position: relative;
+    top: -1.5px;
+    vertical-align: middle
+}
+.keep {
+  display: inline-block;
+  font-family: 'Product Sans',Arial,sans-serif;
+  font-size: 22px;
+  line-height: 24px;
+  padding-left: 8px;
+  position: relative;
+  top: -1.5px;
+  vertical-align: middle;
+}
