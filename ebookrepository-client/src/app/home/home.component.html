@@ -1,8 +1,8 @@
 <mat-toolbar>
-    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon class="icon" aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-  <span class="my">eBookRepository</span> 
+  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon class="icon" aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <span class="my">eBookRepository</span>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
@@ -46,14 +46,19 @@
     </mat-nav-list>
     <hr>
     <mat-nav-list>
-      <a mat-list-item (click)="logout()">
-        <mat-icon class="icon">archive</mat-icon>
-        <div class="item">Log out</div>
+      <a mat-list-item routerLink="/home/profile" routerLinkActive="active">
+        <mat-icon class="icon">account_circle</mat-icon>
+        <div class="item">My profile</div>
       </a>
       <a mat-list-item routerLink="/change-password" routerLinkActive="active">
-        <mat-icon class="icon">delete</mat-icon>
+        <mat-icon class="icon">lock</mat-icon>
         <div class="item">Change password</div>
       </a>
+      <a mat-list-item (click)="logout()">
+        <mat-icon class="icon">exit_to_app</mat-icon>
+        <div class="item">Log out</div>
+      </a>
+
     </mat-nav-list>
     <hr>
   </mat-sidenav>

@@ -19,19 +19,31 @@ export class UserService {
     };
     return this.http.post<User>(`${this.baseUrl}/register`, user, options);
   }
-
   login(user): Observable<LoginResponse> {
     const options = {
       headers: new HttpHeaders()
     };
     return this.http.post<LoginResponse>(`${this.baseUrl}/login`, user, options);
   }
-
   logout(): Observable<any> {
-    console.log('logout');
     return this.http.get(`${this.baseUrl}/logout`);
   }
-
+  changePassword(user): Observable<User> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return this.http.post<User>(`${this.baseUrl}/change-password`, user, options);
+  }
+  getMe(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/me`);
+  }
+  edit(user): Observable<User> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return this.http.post<User>(`${this.baseUrl}/edit`, user, options);
+  }
+  
   getToken(): string {
     return localStorage.getItem('token');
   }

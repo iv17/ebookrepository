@@ -1,0 +1,36 @@
+<div class="container" style="margin-top: 84px;">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ user.firstName }} {{ user.lastName}}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class=" col-md-12 col-lg-12">
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>Username:</td>
+                    <td>{{ user.email}}</td>
+                  </tr>
+                  <tr>
+                    <td>First name:</td>
+                    <td><input type="text" name="firstName" [(ngModel)]="user.firstName"></td>
+                  </tr>
+                  <tr>
+                    <td>Last name:</td>
+                    <td><input type="text" name="lastName" [(ngModel)]="user.lastName"></td>
+                  </tr>
+                  <tr>
+                    <td>Type:</td>
+                    <td>{{ user.type }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-md btn-primary btn-block" type="submit" (click)="edit()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

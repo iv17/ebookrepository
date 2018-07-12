@@ -13,6 +13,11 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderInterceptor } from './header-interceptor';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { EbookListComponent } from './ebook-list/ebook-list.component';
+import { UserProfileEditComponent } from './user-profile-edit/user-profile-edit.component';
 
 const routes: Routes = [
   {
@@ -28,16 +33,22 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: "profile",
-    component: RegisterComponent
-  },
-  {
     path: "change-password",
-    component: RegisterComponent
+    component: ChangePasswordComponent
   },
   {
     path: "home",
-    component: HomeComponent
+    component: HomeComponent,
+    children: [
+      {
+        path: "profile",
+        component: UserProfileComponent
+      },
+      {
+        path: "edit-profile",
+        component: UserProfileEditComponent
+      }
+    ]
   }
 
 ]
@@ -47,7 +58,12 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ChangePasswordComponent,
+    UserProfileComponent,
+    CategoryListComponent,
+    EbookListComponent,
+    UserProfileEditComponent
   ],
   imports: [
     BrowserModule,

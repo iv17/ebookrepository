@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,8 @@ import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.User;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.security.TokenUtils;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.UserService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.validation.UserValidationService;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.ChangePasswordRequestDTO;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.EditProfileRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginResponseDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.RegisterRequestDTO;
@@ -53,7 +56,7 @@ public class UserController {
 
 	@Autowired
 	private TokenUtils tokenUtils;
-	
+
 	@Value("${token.header}")
 	private String tokenHeader;
 
@@ -105,9 +108,6 @@ public class UserController {
 		} catch (BadCredentialsException e) {
 			throw new NotFoundException("Wrong email or password!"); 
 		}
-
-
-
 	}
 
 	@RequestMapping(value = "/logout",
@@ -123,5 +123,64 @@ public class UserController {
 		}
 
 	}
+
+	@RequestMapping(
+			value = "/change-password",
+			method = RequestMethod.POST
+			)
+	public ResponseEntity<UserDTO> changePassword(@RequestBody ChangePasswordRequestDTO request, Authentication authentication) {
+
+		userValidationService.validateIfUserExist(authentication);
+
+		User user = userService.findByEmail(authentication.getName());
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		if(request.getNewPassword().equals(request.getRepeatedNewPassword())) {
+			user.setPassword(encoder.encode(request.getNewPassword()));
+			userService.save(user);
+			UserDTO response =  userConverter.convert(user);
+
+			return new ResponseEntity<UserDTO>(response, HttpStatus.CREATED);
+		} else {
+			UserDTO response =  userConverter.convert(user);
+			return new ResponseEntity<UserDTO>(response, HttpStatus.OK);
+		}
+	} 
+
+	@RequestMapping(
+			value = "/me",
+			method = RequestMethod.GET
+			)
+	public ResponseEntity<UserDTO> registration(Authentication authentication) {
+
+		userValidationService.validateIfUserExist(authentication);
+
+		User user = userService.findByEmail(authentication.getName());
+
+		UserDTO response =  userConverter.convert(user);
+
+		return new ResponseEntity<UserDTO>(response, HttpStatus.OK);
+	}
+
+	@RequestMapping(
+			value = "/edit",
+			method = RequestMethod.POST
+			)
+	public ResponseEntity<UserDTO> editProfile(@RequestBody EditProfileRequestDTO request, Authentication authentication) {
+
+		userValidationService.validateIfUserExist(authentication);
+
+		User user = userService.findByEmail(authentication.getName());
+		
+		user.setFirstName(request.getFirstName());
+		user.setLastName(request.getLastName());
+
+		userService.save(user);
+		UserDTO response =  userConverter.convert(user);
+
+		return new ResponseEntity<UserDTO>(response, HttpStatus.CREATED);
+
+	} 
 
 }
