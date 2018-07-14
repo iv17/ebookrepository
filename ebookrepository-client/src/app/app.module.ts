@@ -47,6 +47,10 @@ const routes: Routes = [
       {
         path: "edit-profile",
         component: UserProfileEditComponent
+      },
+      {
+        path: "categories",
+        component: CategoryListComponent
       }
     ]
   }
