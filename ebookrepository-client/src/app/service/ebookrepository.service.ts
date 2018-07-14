@@ -21,13 +21,13 @@ export class EbookrepositoryService {
   getAll(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}`);
   }
-  addNewBook(book): Observable<Ebook> {
+  create(book): Observable<Ebook> {
     const options = {
       headers: new HttpHeaders()
     };
     return this.http.post<Ebook>(`${this.baseUrl}`, book, options);
   }
-  updateBook(id: number, book): Observable<Ebook> {
+  update(id: number, book): Observable<Ebook> {
     const options = {
       headers: new HttpHeaders()
     };

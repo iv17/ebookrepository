@@ -1,5 +1,8 @@
 package rs.ac.uns.ftn.udd.ebookrepositoryserver.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,9 +32,9 @@ import rs.ac.uns.ftn.udd.ebookrepositoryserver.security.TokenUtils;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.UserService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.validation.UserValidationService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.ChangePasswordRequestDTO;
-import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.EditProfileRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginResponseDTO;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.UpdateUserRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.UserDTO;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -61,10 +65,11 @@ public class UserController {
 
 
 	@RequestMapping(
-			value = "/register",
-			method = RequestMethod.POST
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE, 
+			produces = MediaType.APPLICATION_JSON_VALUE
 			)
-	public ResponseEntity<UserDTO> registration(@RequestBody UserDTO request) {
+	public ResponseEntity<UserDTO> register(@RequestBody UserDTO request) {
 
 		userValidationService.validateIfEmailIsUnique(request.getEmail());
 
@@ -112,7 +117,7 @@ public class UserController {
 	@RequestMapping(value = "/logout",
 			method = RequestMethod.GET,
 			produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> logoutUser() {
+	public ResponseEntity<String> logout() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)){
 			SecurityContextHolder.clearContext();
@@ -125,7 +130,9 @@ public class UserController {
 
 	@RequestMapping(
 			value = "/change-password",
-			method = RequestMethod.POST
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE, 
+			produces = MediaType.APPLICATION_JSON_VALUE
 			)
 	public ResponseEntity<UserDTO> changePassword(@RequestBody ChangePasswordRequestDTO request, Authentication authentication) {
 
@@ -149,9 +156,10 @@ public class UserController {
 
 	@RequestMapping(
 			value = "/me",
-			method = RequestMethod.GET
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE
 			)
-	public ResponseEntity<UserDTO> registration(Authentication authentication) {
+	public ResponseEntity<UserDTO> getMe(Authentication authentication) {
 
 		userValidationService.validateIfUserExist(authentication);
 
@@ -163,14 +171,14 @@ public class UserController {
 	}
 
 	@RequestMapping(
-			value = "/edit",
-			method = RequestMethod.POST
+			value = "/{id}",
+			method = RequestMethod.PUT
 			)
-	public ResponseEntity<UserDTO> editProfile(@RequestBody EditProfileRequestDTO request, Authentication authentication) {
+	public ResponseEntity<UserDTO> update(@PathVariable int id, @RequestBody UpdateUserRequestDTO request, Authentication authentication) {
 
 		userValidationService.validateIfUserExist(authentication);
 
-		User user = userService.findByEmail(authentication.getName());
+		User user = userService.findById(id);
 		
 		user.setFirstName(request.getFirstName());
 		user.setLastName(request.getLastName());
@@ -179,7 +187,24 @@ public class UserController {
 		UserDTO response =  userConverter.convert(user);
 
 		return new ResponseEntity<UserDTO>(response, HttpStatus.CREATED);
-
 	} 
+	
+	@RequestMapping(
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	public ResponseEntity<List<UserDTO>> getAll(Authentication authentication) {
+
+		userValidationService.validateIfUserExist(authentication);
+
+		List<User> users = userService.findAll();
+
+		List<UserDTO> response = new ArrayList<>();
+		for (User user : users) {
+			response.add(userConverter.convert(user));
+		}
+
+		return new ResponseEntity<List<UserDTO>>(response, HttpStatus.OK);
+	}
 
 }

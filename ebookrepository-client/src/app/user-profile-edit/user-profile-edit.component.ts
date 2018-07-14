@@ -22,7 +22,8 @@ export class UserProfileEditComponent implements OnInit {
   }
 
   edit() {
-    this.service.edit(this.user).subscribe((data) => {
+    this.service.update(this.user.id, this.user)
+    .subscribe((data) => {
       this.user = data;
       this.router.navigateByUrl('/home/profile');
     });

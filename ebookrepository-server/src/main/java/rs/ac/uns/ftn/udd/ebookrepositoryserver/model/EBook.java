@@ -19,25 +19,25 @@ public class EBook implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false , unique = true)
+	@Column(name = "id", nullable = false, unique = true)
 	private int id;
 	
-	@Column(name = "title")
+	@Column(name = "title", nullable = false)
 	private String title;
 	
-	@Column(name = "author")
+	@Column(name = "author", nullable = true)
 	private String author;
 	
-	@Column(name = "keywords")
+	@Column(name = "keywords", nullable = true)
 	private String keywords;
 	
-	@Column(name = "publication_year")
+	@Column(name = "publication_year", nullable = true)
 	private int publicationYear;
 	
-	@Column(name = "filename")
+	@Column(name = "filename", nullable = false)
 	private String filename;
 	
-	@Column(name = "mime")
+	@Column(name = "mime", nullable = true)
 	private String MIME;
 	
 	@ManyToOne

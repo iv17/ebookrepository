@@ -17,7 +17,7 @@ export class UserService {
     const options = {
       headers: new HttpHeaders()
     };
-    return this.http.post<User>(`${this.baseUrl}/register`, user, options);
+    return this.http.post<User>(`${this.baseUrl}`, user, options);
   }
   login(user): Observable<LoginResponse> {
     const options = {
@@ -37,11 +37,14 @@ export class UserService {
   getMe(): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/me`);
   }
-  edit(user): Observable<User> {
+  update(id: number, user): Observable<User> {
     const options = {
       headers: new HttpHeaders()
     };
-    return this.http.post<User>(`${this.baseUrl}/edit`, user, options);
+    return this.http.put<User>(`${this.baseUrl}/${id}`, user, options);
+  }
+  getAll(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}`);
   }
   
   getToken(): string {

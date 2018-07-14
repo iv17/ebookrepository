@@ -39,9 +39,9 @@ public class User implements Serializable {
 	private String password;
 	
 	@Column(name = "type")
-	private String type;
+	private String type;//ADMIN ili PRETPLATNIK
 
-	@ManyToOne
+	@ManyToOne //ako nema kategoriju moze sve da preuzima
 	@JoinColumn(name = "category_id", referencedColumnName = "id", nullable = true)
 	private Category category;
 	

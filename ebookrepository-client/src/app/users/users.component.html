@@ -1,0 +1,91 @@
+<div class="page-header no-margin-bottom">
+  <div class="container-fluid">
+    <h2 class="h5 no-margin-bottom">Azuriranje liste korisnika</h2>
+  </div>
+</div>
+<ul class="breadcrumb">
+  <div class="container-fluid">
+  </div>
+</ul>
+<div class="no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="block">
+          <div class="title"><strong class="d-block">Prikaz svih korisnika: </strong></div>
+          <div class="block-body">
+            <form class="form-horizontal">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Email</th>
+                    <th>Kategorija</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of users; let i = index"  (click)="selectUser(user)">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{user.firstName}}</td>
+                  <td>{{user.lastName}}</td>
+                  <td>{{user.email}}</td>
+                 
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Horizontal Form-->
+      <div class="col-lg-4">
+        <div class="block" >
+          <div class="title"><strong class="d-block">Dodavanje novog korisnika</strong></div>
+          <div class="block-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="form-control-label">Ime</label>
+                <input type="text" name="ime" [(ngModel)]="newUser.firstName" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Prezime</label>
+                <input type="text" name="prezime" [(ngModel)]="newUser.lastName" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Email</label>
+                <input type="email" name="email" [(ngModel)]="newUser.email" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Lozinka</label>
+                <input type="password" name="password" [(ngModel)]="newUser.password" class="form-control">
+              </div>
+              <div class="form-group">       
+                <button (click)="create()" class="btn btn-primary">Dodaj</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="block">
+          <div class="title"><strong class="d-block">Izmena korisnika</strong></div>
+          <div class="block-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="form-control-label">Ime</label>
+                <input type="text" name="ime" [(ngModel)]="user.firstName" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Prezime</label>
+                <input type="text" name="prezimee" [(ngModel)]="user.lastName" class="form-control">
+              </div>
+              <div class="form-group">       
+                <button (click)="update()" class="btn btn-primary">Izmeni</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

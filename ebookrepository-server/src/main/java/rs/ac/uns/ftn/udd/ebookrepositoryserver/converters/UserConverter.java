@@ -43,6 +43,7 @@ public class UserConverter {
 	//==================== REGISTER ====================	
 	public UserDTO convert(User user) {
 		UserDTO dto = new UserDTO();
+		dto.setId(user.getId());
 		dto.setFirstName(user.getFirstName());
 		dto.setLastName(user.getLastName());
 		dto.setEmail(user.getEmail());
@@ -57,8 +58,8 @@ public class UserConverter {
 		user.setPassword(encoder.encode(dto.getPassword()));
 		user.setFirstName(dto.getFirstName());
 		user.setLastName(dto.getLastName());
-		user.setType(dto.getType());
-		user.setCategory(categoryConverter.convert(dto.getCategory()));
+		//user.setType(dto.getType());
+		//user.setCategory(categoryConverter.convert(dto.getCategory()));
 		
 		return user;
 	}
