@@ -11,11 +11,13 @@ export class CategoryService {
   private baseUrl = 'http://localhost:8080/api/categories';
 
   constructor(private http: HttpClient) { }
-
+  
+  getById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
   getAll(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}`);
   }
-
   addNewCategory(category): Observable<Category> {
     const options = {
       headers: new HttpHeaders()

@@ -31,7 +31,6 @@ import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.ChangePasswordRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.EditProfileRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginResponseDTO;
-import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.RegisterRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.UserDTO;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -65,7 +64,7 @@ public class UserController {
 			value = "/register",
 			method = RequestMethod.POST
 			)
-	public ResponseEntity<UserDTO> registration(@RequestBody RegisterRequestDTO request) {
+	public ResponseEntity<UserDTO> registration(@RequestBody UserDTO request) {
 
 		userValidationService.validateIfEmailIsUnique(request.getEmail());
 

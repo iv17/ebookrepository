@@ -32,6 +32,20 @@ public class CategoryController {
 	CategoryConverter categoryConverter;
 	
 	@RequestMapping(
+			value = "/{id}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	public ResponseEntity<CategoryDTO> getById(@PathVariable int id, Authentication authentication) {
+
+		Category category = categoryService.findById(id);
+		
+		CategoryDTO response = categoryConverter.convert(category);
+		
+		return new ResponseEntity<CategoryDTO>(response, HttpStatus.OK);
+	}
+	
+	@RequestMapping(
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)

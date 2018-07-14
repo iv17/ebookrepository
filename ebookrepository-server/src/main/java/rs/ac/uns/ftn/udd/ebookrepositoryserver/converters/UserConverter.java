@@ -1,17 +1,19 @@
 package rs.ac.uns.ftn.udd.ebookrepositoryserver.converters;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.User;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginResponseDTO;
-import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.RegisterRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.UserDTO;
 
 @Component
 public class UserConverter {
 	
+	@Autowired
+	private CategoryConverter categoryConverter;
 	
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
@@ -38,17 +40,7 @@ public class UserConverter {
 		return dto;
 	}
 	
-	//==================== REGISTER ====================
-	public User convert(RegisterRequestDTO dto) {
-		User user = new User();
-		user.setFirstName(dto.getFirstName());
-		user.setLastName(dto.getLastName());
-		user.setEmail(dto.getEmail());
-		user.setPassword(encoder.encode(dto.getPassword()));
-		
-		return user;
-	}
-	
+	//==================== REGISTER ====================	
 	public UserDTO convert(User user) {
 		UserDTO dto = new UserDTO();
 		dto.setFirstName(user.getFirstName());
@@ -59,4 +51,15 @@ public class UserConverter {
 		return dto;
 	}
 	
+	public User convert(UserDTO dto) {
+		User user = new User();
+		user.setEmail(dto.getEmail());
+		user.setPassword(encoder.encode(dto.getPassword()));
+		user.setFirstName(dto.getFirstName());
+		user.setLastName(dto.getLastName());
+		user.setType(dto.getType());
+		user.setCategory(categoryConverter.convert(dto.getCategory()));
+		
+		return user;
+	}
 }

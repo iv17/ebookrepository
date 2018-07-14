@@ -48,9 +48,6 @@ public class User implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Authority> authorities;
 
-	
-	public User() {}
-
 
 	public int getId() {
 		return id;

@@ -36,7 +36,6 @@ export class CategoryListComponent implements OnInit {
           console.log(error);
         }
       );
-
   }
   public selectCategory(row) {
     this.category.id = row.id;
