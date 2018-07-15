@@ -39,7 +39,7 @@ public class User implements Serializable {
 	private String password;
 	
 	@Column(name = "type")
-	private String type;//ADMIN ili PRETPLATNIK
+	private String type;
 
 	@ManyToOne //ako nema kategoriju moze sve da preuzima
 	@JoinColumn(name = "category_id", referencedColumnName = "id", nullable = true)
@@ -48,6 +48,17 @@ public class User implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Authority> authorities;
 
+
+	public User() {}
+	
+	public User(String firstName, String lastName, String email, String password, String type, Category category) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.type = type;
+		this.category = category;
+	}
 
 	public int getId() {
 		return id;
@@ -111,6 +122,12 @@ public class User implements Serializable {
 
 	public void setAuthorities(List<Authority> authorities) {
 		this.authorities = authorities;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + ", type=" + type + ", category=" + category + "]";
 	}
 	
 }

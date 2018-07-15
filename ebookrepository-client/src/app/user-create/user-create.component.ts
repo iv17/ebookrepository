@@ -10,9 +10,10 @@ import { Router } from '@angular/router';
 })
 export class UserCreateComponent implements OnInit {
 
-  public newUser = { firstName: "", lastName: "", email: "", password: "", categoryName: ""};
+  public newUser = { firstName: "", lastName: "", email: "", password: "", type: "", categoryName: ""};
   public categories = [];
-
+  public types = ["PRETPLATNIK", "ADMIN"];
+  
   constructor(private router: Router,
     private userService: UserService,
     private categoryService: CategoryService) { }

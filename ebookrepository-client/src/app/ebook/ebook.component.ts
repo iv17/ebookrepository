@@ -11,15 +11,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EbookComponent implements OnInit {
 
-  public categoryId;
   public eBookId;
-
   public eBook;
   
   constructor(private router: Router,
     private route: ActivatedRoute,
     private eBookRepositoryService: EbookrepositoryService) { 
-    this.categoryId = route.snapshot.params['categoryId'];
     this.eBookId = route.snapshot.params['eBookId'];
   }
 

@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
     lastName: "Savin",
     email: "ivana@gmail.com",
     password: "ivana",
+    type: "PRETPLATNIK",
     categoryName: "silver" 
   };
   

@@ -8,7 +8,7 @@ public class EBookDTO {
 	private String keywords;
 	private int publicationYear;
 	private String filename;
-	private String MIME;
+	private String mime;
 	private String categoryName;
 	private String languageName;
 	private String cataloguerName;
@@ -61,13 +61,13 @@ public class EBookDTO {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	
-	public String getMIME() {
-		return MIME;
+
+	public String getMime() {
+		return mime;
 	}
-	
-	public void setMIME(String mIME) {
-		MIME = mIME;
+
+	public void setMime(String mime) {
+		this.mime = mime;
 	}
 
 	public String getCategoryName() {

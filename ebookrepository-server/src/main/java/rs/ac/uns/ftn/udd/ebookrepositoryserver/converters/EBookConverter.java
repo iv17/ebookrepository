@@ -29,7 +29,7 @@ public class EBookConverter {
 		eBook.setAuthor(dto.getAuthor());
 		eBook.setFilename(dto.getFilename());
 		eBook.setPublicationYear(dto.getPublicationYear());
-		eBook.setMIME(dto.getMIME());
+		eBook.setMime(dto.getMime());
 		eBook.setCategory(categoryService.findByName(dto.getCategoryName()));
 		eBook.setLanguage(languageService.findByName(dto.getLanguageName()));
 		eBook.setCataloguer(userService.findByEmail(dto.getCataloguerName()));
@@ -45,7 +45,7 @@ public class EBookConverter {
 		dto.setAuthor(eBook.getAuthor());
 		dto.setFilename(eBook.getFilename());
 		dto.setPublicationYear(eBook.getPublicationYear());
-		dto.setMIME(eBook.getMIME());
+		dto.setMime(eBook.getMime());
 		dto.setCategoryName(eBook.getCategory().getName());
 		dto.setLanguageName(eBook.getLanguage().getName());
 		dto.setCataloguerName(eBook.getCataloguer().getEmail());

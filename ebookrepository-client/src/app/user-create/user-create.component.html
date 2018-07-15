@@ -32,6 +32,12 @@
                 <input type="password" name="password" [(ngModel)]="newUser.password" class="form-control">
               </div>
               <div class="form-group">
+                  <label for="power">Tip</label>
+                  <select class="form-control" required name="tip" [(ngModel)]="newUser.type">
+                    <option *ngFor="let type of types" [value]="type" >{{type}}</option>
+                  </select>
+                </div>
+              <div class="form-group">
                 <label for="power">Kategorija</label>
                 <select class="form-control" required name="category" [(ngModel)]="newUser.categoryName">
                   <option *ngFor="let cat of categories" [value]="cat.name" >{{cat.name}}</option>

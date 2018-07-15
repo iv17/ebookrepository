@@ -74,6 +74,10 @@ const routes: Routes = [
         component: EbookComponent
       },
       {
+        path: "ebooks/:eBookId",
+        component: EbookComponent
+      },
+      {
         path: "ebooks",
         component: EbookListSearchComponent
       },

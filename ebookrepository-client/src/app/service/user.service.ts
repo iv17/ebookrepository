@@ -4,6 +4,10 @@ import { User } from '../model/user';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { LoginResponse } from '../model/loginResponse.model';
 
+import { Http, Response } from '@angular/http';
+import { map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,8 +15,23 @@ export class UserService {
 
   private baseUrl = 'http://localhost:8080/api/users';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private http2 : Http) { }
 
+  private parseData(res: Response) {
+    return res.json() || [];
+  }
+
+  private handleError(error: Response | any) {
+    let errorMessage: string;
+    errorMessage = error.message ? error.message : error.toString();
+    return Observable.throw(errorMessage);
+  }
+
+  /*getAll(): Observable<any> {
+    return this.http2.get(this.baseUrl)
+    .pipe(map(this.parseData));
+  }*/
   register(user): Observable<User> {
     const options = {
       headers: new HttpHeaders()

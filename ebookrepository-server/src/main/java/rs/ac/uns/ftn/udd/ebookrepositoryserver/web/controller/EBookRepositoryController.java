@@ -76,9 +76,9 @@ public class EBookRepositoryController {
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
-	public ResponseEntity<List<EBookDTO>> getById(Authentication authentication) {
+	public ResponseEntity<List<EBookDTO>> getAll(Authentication authentication) {
 
-		List<EBook> eBooks = eBookService.findAll();
+		Iterable<EBook> eBooks = eBookService.findAll();
 		
 		List<EBookDTO> response = new ArrayList<>();
 		for (EBook eBook : eBooks) {

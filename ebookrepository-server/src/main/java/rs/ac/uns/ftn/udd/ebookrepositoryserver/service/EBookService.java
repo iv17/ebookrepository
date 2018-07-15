@@ -20,7 +20,19 @@ public class EBookService {
 		return eBookRepository.findById(id);
 	}
 	
-	/*public List<EBook> findByTitle(String title) {
+	public List<EBook> findByCategory(Category category) {
+		return eBookRepository.findByCategory(category);
+	}
+
+	public Iterable<EBook> findAll() {
+		return eBookRepository.findAll();
+	}
+
+	public EBook save(EBook eBook) {
+		return eBookRepository.save(eBook);
+	}
+	
+	public List<EBook> findByTitle(String title) {
 		return eBookRepository.findByTitle(title);
 	}
 	
@@ -34,14 +46,6 @@ public class EBookService {
 	
 	public List<EBook> findByLanguage(Language language) {
 		return eBookRepository.findByLanguage(language);
-	}*/
-	
-	public List<EBook> findByCategory(Category category) {
-		return eBookRepository.findByCategory(category);
-	}
-
-	public List<EBook> findAll() {
-		return eBookRepository.findAll();
 	}
 	
 }
