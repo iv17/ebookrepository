@@ -21,6 +21,8 @@ import { UserProfileEditComponent } from './user-profile-edit/user-profile-edit.
 import { EbookComponent } from './ebook/ebook.component';
 import { UsersComponent } from './users/users.component';
 import { EbookListSearchComponent } from './ebook-list-search/ebook-list-search.component';
+import { UserCreateComponent } from './user-create/user-create.component';
+import { EbookCreateComponent } from './ebook-create/ebook-create.component';
 
 const routes: Routes = [
   {
@@ -56,6 +58,10 @@ const routes: Routes = [
         component: UsersComponent
       },
       {
+        path: "user-create",
+        component: UserCreateComponent
+      },
+      {
         path: "categories",
         component: CategoryListComponent
       },
@@ -71,6 +77,10 @@ const routes: Routes = [
         path: "ebooks",
         component: EbookListSearchComponent
       },
+      {
+        path: "ebook-create",
+        component: EbookCreateComponent
+      }
     ]
   }
 
@@ -89,7 +99,9 @@ const routes: Routes = [
     UserProfileEditComponent,
     EbookComponent,
     UsersComponent,
-    EbookListSearchComponent
+    EbookListSearchComponent,
+    UserCreateComponent,
+    EbookCreateComponent
   ],
   imports: [
     BrowserModule,

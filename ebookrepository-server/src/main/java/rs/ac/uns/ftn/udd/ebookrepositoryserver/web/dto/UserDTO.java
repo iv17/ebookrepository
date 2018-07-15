@@ -8,7 +8,7 @@ public class UserDTO {
 	private String email;
 	private String password;
 	private String type;
-	private CategoryDTO category;
+	private String categoryName;
 	
 	
 	
@@ -60,12 +60,12 @@ public class UserDTO {
 		this.type = type;
 	}
 
-	public CategoryDTO getCategory() {
-		return category;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setCategory(CategoryDTO category) {
-		this.category = category;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	
 }

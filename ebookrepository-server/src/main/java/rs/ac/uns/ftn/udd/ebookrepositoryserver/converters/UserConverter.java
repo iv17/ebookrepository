@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.User;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.CategoryService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginRequestDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.LoginResponseDTO;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.UserDTO;
@@ -13,7 +14,7 @@ import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.UserDTO;
 public class UserConverter {
 	
 	@Autowired
-	private CategoryConverter categoryConverter;
+	private CategoryService categoryService;
 	
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
@@ -32,7 +33,10 @@ public class UserConverter {
 		userDTO.setLastName(user.getLastName());
 		userDTO.setEmail(user.getEmail());
 		userDTO.setPassword(user.getPassword());
-	
+		userDTO.setType(user.getType());
+		if(user.getCategory() != null) {
+			userDTO.setCategoryName(user.getCategory().getName());
+		}
 		LoginResponseDTO dto = new LoginResponseDTO();
 		dto.setUser(userDTO);
 		dto.setToken(token);
@@ -48,6 +52,11 @@ public class UserConverter {
 		dto.setLastName(user.getLastName());
 		dto.setEmail(user.getEmail());
 		dto.setPassword(user.getPassword());
+		dto.setType(user.getType());
+		if(user.getCategory() != null) {
+			dto.setCategoryName(user.getCategory().getName());
+		}
+		
 		
 		return dto;
 	}
@@ -58,8 +67,11 @@ public class UserConverter {
 		user.setPassword(encoder.encode(dto.getPassword()));
 		user.setFirstName(dto.getFirstName());
 		user.setLastName(dto.getLastName());
-		//user.setType(dto.getType());
-		//user.setCategory(categoryConverter.convert(dto.getCategory()));
+		user.setType(dto.getType());
+		if(dto.getCategoryName() != null) {
+			user.setCategory(categoryService.findByName(dto.getCategoryName()));
+		}
+		
 		
 		return user;
 	}

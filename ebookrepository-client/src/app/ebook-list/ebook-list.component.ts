@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EbookrepositoryService } from '../service/ebookrepository.service';
 import { CategoryService } from '../service/category.service';
+import { LanguageService } from '../service/language.service';
 
 @Component({
   selector: 'app-ebook-list',
@@ -14,15 +15,16 @@ export class EbookListComponent implements OnInit {
   public category;
 
   public books = [];
+  public languages = [];
+  public categories = [];
 
   public row = { title: "", author: "", publicationYear: "", languageName: "" };
   public book = { title: "", author: "", keywords: "", publicationYear: "", languageName: "" };
-  public newBook = { title: "", author: "", keywords: "", publicationYear: "", languageName: "" };
-
-
+  
   constructor(private router: Router,
     private route: ActivatedRoute,
     private categoryService: CategoryService,
+    private languageService: LanguageService,
     private eBookRepositoryService: EbookrepositoryService) { 
       this.categoryId = route.snapshot.params['categoryId'];
     }
@@ -30,6 +32,8 @@ export class EbookListComponent implements OnInit {
   ngOnInit() {
     this.findCategory();
     this.populate();
+    this.populateCategories();
+    this.populateLanguages();
   }
 
   public findCategory() {
@@ -42,6 +46,28 @@ export class EbookListComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  public populateCategories() {
+    this.categoryService.getAll()
+      .subscribe(
+        data => {
+          this.categories = data;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+  public populateLanguages() {
+    this.languageService.getAll()
+      .subscribe(
+        data => {
+          this.languages = data;
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
   public populate() {
     this.eBookRepositoryService.getAllByCategory(this.categoryId)

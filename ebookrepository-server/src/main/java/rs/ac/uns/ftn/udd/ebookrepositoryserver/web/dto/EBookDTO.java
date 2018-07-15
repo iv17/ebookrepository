@@ -9,9 +9,9 @@ public class EBookDTO {
 	private int publicationYear;
 	private String filename;
 	private String MIME;
-	private CategoryDTO category;
-	private LanguageDTO language;
-	private UserDTO cataloguer;
+	private String categoryName;
+	private String languageName;
+	private String cataloguerName;
 	
 	
 	public int getId() {
@@ -69,29 +69,29 @@ public class EBookDTO {
 	public void setMIME(String mIME) {
 		MIME = mIME;
 	}
-	
-	public CategoryDTO getCategory() {
-		return category;
-	}
-	
-	public void setCategory(CategoryDTO category) {
-		this.category = category;
-	}
-	
-	public LanguageDTO getLanguage() {
-		return language;
-	}
-	
-	public void setLanguage(LanguageDTO language) {
-		this.language = language;
-	}
-	
-	public UserDTO getCataloguer() {
-		return cataloguer;
-	}
-	
-	public void setCataloguer(UserDTO cataloguer) {
-		this.cataloguer = cataloguer;
+
+	public String getCategoryName() {
+		return categoryName;
 	}
 
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getLanguageName() {
+		return languageName;
+	}
+
+	public void setLanguageName(String languageName) {
+		this.languageName = languageName;
+	}
+
+	public String getCataloguerName() {
+		return cataloguerName;
+	}
+
+	public void setCataloguerName(String cataloguerName) {
+		this.cataloguerName = cataloguerName;
+	}
+	
 }

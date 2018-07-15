@@ -40,6 +40,19 @@ public class EBookRepositoryController {
 	@Autowired
 	EBookConverter eBookConverter;
 	
+	@RequestMapping(
+			value = "/{id}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	public ResponseEntity<EBookDTO> getById(@PathVariable int id, Authentication authentication) {
+
+		EBook eBook = eBookService.findById(id);
+		
+		EBookDTO response = eBookConverter.convert(eBook);
+		
+		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
+	}
 	
 	@RequestMapping(
 			value = "/{categoryId}/category",

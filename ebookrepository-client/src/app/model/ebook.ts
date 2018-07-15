@@ -1,6 +1,3 @@
-import { Category } from "./category";
-import { Language } from "./language";
-import { User } from "./user";
 
 export class Ebook {
     title: String;
@@ -9,9 +6,9 @@ export class Ebook {
     publicationYear: number;
     fileName: String;
     MIME: String;
-    category: Category;
-    language: Language;
-    cataloguer: User;
+    categoryName: String;
+    languageName: String;
+    cataloguerName: String;
     
     constructor(inter: EBookInterface = {}) {
         this.title = inter.title;
@@ -20,9 +17,9 @@ export class Ebook {
         this.publicationYear = inter.publicationYear;
         this.fileName = inter.fileName;
         this.MIME = inter.MIME;
-        this.category = inter.category;
-        this.language = inter.language;
-        this.cataloguer = inter.cataloguer;
+        this.categoryName = inter.categoryName;
+        this.languageName = inter.languageName;
+        this.cataloguerName = inter.cataloguerName;
     }
 }
 interface EBookInterface {
@@ -32,7 +29,7 @@ interface EBookInterface {
     publicationYear?: number;
     fileName?: String;
     MIME?: String;
-    category?: Category;
-    language?: Language;
-    cataloguer?: User;
+    categoryName?: String;
+    languageName?: String;
+    cataloguerName?: String;
 }

@@ -29,6 +29,7 @@ import rs.ac.uns.ftn.udd.ebookrepositoryserver.exceptions.BadRequestException;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.exceptions.NotFoundException;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.User;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.security.TokenUtils;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.CategoryService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.UserService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.validation.UserValidationService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.ChangePasswordRequestDTO;
@@ -44,6 +45,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CategoryService categoryService;
 
 	@Autowired
 	UserValidationService userValidationService;
@@ -182,8 +186,11 @@ public class UserController {
 		
 		user.setFirstName(request.getFirstName());
 		user.setLastName(request.getLastName());
-
+		user.setType(request.getType());
+		user.setCategory(categoryService.findByName(request.getCategoryName()));
+		
 		userService.save(user);
+		
 		UserDTO response =  userConverter.convert(user);
 
 		return new ResponseEntity<UserDTO>(response, HttpStatus.CREATED);

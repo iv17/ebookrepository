@@ -1,3 +1,53 @@
-<p>
-  ebook works!
-</p>
+<div class="container" style="margin-top: 84px;">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ eBook.title }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class=" col-md-12 col-lg-12 ">
+            <table class="table table-user-information">
+              <tbody>
+                <tr>
+                  <td>Title:</td>
+                  <td>{{ eBook.title }}</td>
+                </tr>
+                <tr>
+                  <td>Author:</td>
+                  <td>{{ eBook.author }}</td>
+                </tr>
+                <tr>
+                  <td>Publication year:</td>
+                  <td>{{ eBook.publicationYear }}</td>
+                </tr>
+                <tr>
+                  <td>Filename:</td>
+                  <td>{{ eBook.filename }}</td>
+                </tr>
+                <tr>
+                  <td>MIME:</td>
+                  <td>{{ eBook.mime }}</td>
+                </tr>
+                <tr>
+                  <td>Category:</td>
+                  <td>{{ eBook.categoryName }}</td>
+                </tr>
+                <tr>
+                  <td>Language:</td>
+                  <td>{{ eBook.languageName }}</td>
+                </tr>
+                <tr>
+                  <td>Cataloguer:</td>
+                  <td>{{ eBook.cataloguerName }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button class="btn btn-md btn-primary btn-block" type="submit">Download</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

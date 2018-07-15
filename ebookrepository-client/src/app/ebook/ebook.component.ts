@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../service/category.service';
+import { LanguageService } from '../service/language.service';
+import { EbookrepositoryService } from '../service/ebookrepository.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-ebook',
@@ -7,9 +11,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EbookComponent implements OnInit {
 
-  constructor() { }
+  public categoryId;
+  public eBookId;
+
+  public eBook;
+  
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private eBookRepositoryService: EbookrepositoryService) { 
+    this.categoryId = route.snapshot.params['categoryId'];
+    this.eBookId = route.snapshot.params['eBookId'];
+  }
 
   ngOnInit() {
+    this.eBookRepositoryService.getById(this.eBookId)
+    .subscribe(
+      data => {
+        this.eBook = data;
+        console.log(this.eBook);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

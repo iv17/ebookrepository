@@ -20,7 +20,7 @@ public class Language implements Serializable {
 	@Column(name = "id", nullable = false , unique = true)
 	private int id;
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable = false , unique = true)
 	private String name;
 
 	

@@ -13,7 +13,8 @@ export class RegisterComponent implements OnInit {
     firstName: "Ivana",
     lastName: "Savin",
     email: "ivana@gmail.com",
-    password: "ivana"
+    password: "ivana",
+    categoryName: "silver" 
   };
   
   constructor(private service: UserService,

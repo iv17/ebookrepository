@@ -17,6 +17,10 @@ public class CategoryService {
 	public Category findById(int id) {
 		return categoryRepository.findById(id);
 	}
+	
+	public Category findByName(String name) {
+		return categoryRepository.findByName(name);
+	}
 
 	public List<Category >findAll() {
 		return categoryRepository.findAll();

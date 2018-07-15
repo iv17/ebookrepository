@@ -1,4 +1,4 @@
-<div class="page-header no-margin-bottom">
+<div class="page-header no-margin-bottom" style="margin-top: 84px;">
   <div class="container-fluid">
     <h2 class="h5 no-margin-bottom">Azuriranje liste korisnika</h2>
   </div>
@@ -31,7 +31,7 @@
                   <td>{{user.firstName}}</td>
                   <td>{{user.lastName}}</td>
                   <td>{{user.email}}</td>
-                 
+                  <td>{{user.categoryName}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -41,32 +41,6 @@
       </div>
       <!-- Horizontal Form-->
       <div class="col-lg-4">
-        <div class="block" >
-          <div class="title"><strong class="d-block">Dodavanje novog korisnika</strong></div>
-          <div class="block-body">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label class="form-control-label">Ime</label>
-                <input type="text" name="ime" [(ngModel)]="newUser.firstName" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Prezime</label>
-                <input type="text" name="prezime" [(ngModel)]="newUser.lastName" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Email</label>
-                <input type="email" name="email" [(ngModel)]="newUser.email" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Lozinka</label>
-                <input type="password" name="password" [(ngModel)]="newUser.password" class="form-control">
-              </div>
-              <div class="form-group">       
-                <button (click)="create()" class="btn btn-primary">Dodaj</button>
-              </div>
-            </form>
-          </div>
-        </div>
         <div class="block">
           <div class="title"><strong class="d-block">Izmena korisnika</strong></div>
           <div class="block-body">
@@ -78,6 +52,12 @@
               <div class="form-group">
                 <label class="form-control-label">Prezime</label>
                 <input type="text" name="prezimee" [(ngModel)]="user.lastName" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="power">Kategorija</label>
+                <select class="form-control" required name="category" [(ngModel)]="user.categoryName">
+                  <option *ngFor="let cat of categories" [value]="cat.name" >{{cat.name}}</option>
+                </select>
               </div>
               <div class="form-group">       
                 <button (click)="update()" class="btn btn-primary">Izmeni</button>

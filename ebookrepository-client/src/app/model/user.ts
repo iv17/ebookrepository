@@ -7,7 +7,7 @@ export class User {
     email: String;
     password: String;
     type: String;
-    category: Category;
+    categoryName: String;
 
     constructor(inter: UserInterface = {}) {
         this.id = inter.id;
@@ -16,7 +16,7 @@ export class User {
         this.email = inter.email;
         this.password = inter.password;
         this.type = inter.type;
-        this.category = inter.category;
+        this.categoryName = inter.categoryName;
     }
 }
 
@@ -27,5 +27,5 @@ interface UserInterface {
     email?: String;
     password?: String;
     type?: String;
-    category?: Category;
+    categoryName?: String;
 }
