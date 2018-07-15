@@ -71,4 +71,21 @@ public class EBookRepositoryController {
 		}
 		return new ResponseEntity<List<EBookDTO>>(response, HttpStatus.OK);
 	}
+	
+	@RequestMapping(
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	public ResponseEntity<List<EBookDTO>> getById(Authentication authentication) {
+
+		List<EBook> eBooks = eBookService.findAll();
+		
+		List<EBookDTO> response = new ArrayList<>();
+		for (EBook eBook : eBooks) {
+			response.add(eBookConverter.convert(eBook));
+		}
+		
+		return new ResponseEntity<List<EBookDTO>>(response, HttpStatus.OK);
+	}
+	
 }
