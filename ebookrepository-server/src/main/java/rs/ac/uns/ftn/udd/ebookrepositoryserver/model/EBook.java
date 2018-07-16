@@ -2,50 +2,55 @@ package rs.ac.uns.ftn.udd.ebookrepositoryserver.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import org.springframework.data.elasticsearch.annotations.Document;
-
-//@Entity
-//@Table(name = "ebook")
-@Document(indexName = "iv", type = "books")
+@Entity
+@Table(name = "ebook")
+//@Document(indexName = "iv", type = "books")
 public class EBook implements Serializable {
 
 	private static final long serialVersionUID = 1794404948542221514L;
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@Column(name = "id", nullable = false, unique = true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false, unique = true)
 	private int id;
 	
-	//@Column(name = "title", nullable = false)
+	@Column(name = "title", nullable = false)
 	private String title;
 	
-	//@Column(name = "author", nullable = true)
+	@Column(name = "author", nullable = true)
 	private String author;
 	
-	//@Column(name = "keywords", nullable = true)
+	@Column(name = "keywords", nullable = true)
 	private String keywords;
 	
-	//@Column(name = "publication_year", nullable = true)
+	@Column(name = "publication_year", nullable = true)
 	private int publicationYear;
 	
-	//@Column(name = "filename", nullable = false)
+	@Column(name = "filename", nullable = false)
 	private String filename;
 	
-	//@Column(name = "mime", nullable = true)
+	@Column(name = "mime", nullable = true)
 	private String mime;
 	
-	//@ManyToOne
-	//@JoinColumn(name = "category_id", referencedColumnName = "id", nullable = true)
+	@ManyToOne
+	@JoinColumn(name = "category_id", referencedColumnName = "id", nullable = true)
 	private Category category;
 	
-	//@ManyToOne
-	//@JoinColumn(name = "language_id", referencedColumnName = "id", nullable = true)
+	@ManyToOne
+	@JoinColumn(name = "language_id", referencedColumnName = "id", nullable = true)
 	private Language language;
 	
-	//@ManyToOne
-	//@JoinColumn(name = "cataloguer_id", referencedColumnName = "id", nullable = true)
+	@ManyToOne
+	@JoinColumn(name = "cataloguer_id", referencedColumnName = "id", nullable = true)
 	private User cataloguer;
 
 	

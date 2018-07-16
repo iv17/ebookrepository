@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.Category;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.EBook;
-import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.Language;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.repository.EBookRepository;
 
 @Service
@@ -30,22 +29,6 @@ public class EBookService {
 
 	public EBook save(EBook eBook) {
 		return eBookRepository.save(eBook);
-	}
-	
-	public List<EBook> findByTitle(String title) {
-		return eBookRepository.findByTitle(title);
-	}
-	
-	public List<EBook> findByAuthor(String author) {
-		return eBookRepository.findByAuthor(author);
-	}
-	
-	public List<EBook> findByKeywords(String keywords) {
-		return eBookRepository.findByKeywords(keywords);
-	}
-	
-	public List<EBook> findByLanguage(Language language) {
-		return eBookRepository.findByLanguage(language);
 	}
 	
 }

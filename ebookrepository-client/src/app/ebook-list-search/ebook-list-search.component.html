@@ -1,6 +1,6 @@
 <div class="page-header no-margin-bottom" style="margin-top: 84px;">
   <div class="container-fluid">
-    <h2 class="h5 no-margin-bottom">Azuriranje liste knjiga </h2>
+    <h2 class="h5 no-margin-bottom">Pretrazivanje liste knjiga </h2>
   </div>
 </div>
 <ul class="breadcrumb">
@@ -13,6 +13,11 @@
             <input type="text" name="name" [(ngModel)]="book.title" class="form-control">
           </div>
         </div>
+        <br>
+        <div class="form-group" class="col-lg-6">
+          <button (click)="searchByTitle()" class="btn btn-primary">Pretrazi po naslovu</button>
+        </div>
+        <br>
         <div class="input-group">
           <div class="form-group" class="col-lg-6">
             <label class="form-control-label">Autor</label>
@@ -27,6 +32,11 @@
             </label>
           </div>
         </div>
+        <br>
+        <div class="form-group" class="col-lg-6">
+          <button (click)="searchByAuthor()" class="btn btn-primary">Pretrazi po autoru</button>
+        </div>
+        <br>
         <div class="input-group">
           <div class="form-group" class="col-lg-6">
             <label class="form-control-label">Kljucne reci</label>
@@ -41,19 +51,9 @@
             </label>
           </div>
         </div>
-        <div class="input-group">
-          <div class="form-group" class="col-lg-6">
-            <label class="form-control-label">Godina izdanja</label>
-            <input type="text" name="publicationYear" [(ngModel)]="book.publicationYear" class="form-control">
-          </div>
-          <div class="form-group" data-toggle="buttons3">
-            <label class="btn btn-md btn-success active">
-              <input type="radio" name="options3" id="option1" autocomplete="off">AND
-            </label>
-            <label class="btn btn-md btn-primary">
-              <input type="radio" name="options3" id="option2" autocomplete="off">OR
-            </label>
-          </div>
+        <br>
+        <div class="form-group" class="col-lg-6">
+          <button (click)="searchByKeywords()" class="btn btn-primary">Pretrazi po kljucnim recima</button>
         </div>
         <div class="input-group">
           <div class="form-group" class="col-lg-6">
@@ -73,7 +73,11 @@
         </div>
         <br>
         <div class="form-group" class="col-lg-6">
-          <button (click)="search()" class="btn btn-primary">Pretrazi</button>
+          <button (click)="searchByLanguage()" class="btn btn-primary">Pretrazi po jeziku</button>
+        </div>
+        <br>
+        <div class="form-group" class="col-lg-6">
+          <button (click)="search()" class="btn btn-primary pull-right">Pretrazi</button>
         </div>
       </div>
     </form>

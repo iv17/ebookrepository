@@ -13,6 +13,8 @@ export class EbookCreateComponent implements OnInit {
   public languages = [];
   public categories = [];
 
+  public file: any;
+
   public categoryId;
   public newBook = { title: "", author: "", keywords: "", publicationYear: "", languageName: "", categoryName: "" };
 
@@ -50,6 +52,9 @@ export class EbookCreateComponent implements OnInit {
       );
   }
 
+  public upload() {
+    console.log(this.file);
+  }
   public addNewBook() {
     this.router.navigateByUrl('/home/categories/ebooks/1');
   }
