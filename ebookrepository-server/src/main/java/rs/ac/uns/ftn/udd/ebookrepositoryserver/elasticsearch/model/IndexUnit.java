@@ -21,7 +21,11 @@ public class IndexUnit {
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
 	private String title;
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String author;
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
 	private String keywords;
+	@Field(type = FieldType.Integer, index = FieldIndex.analyzed, store = true)
+	private Integer publicationYear;
 	@Id
 	@Field(type = FieldType.String, index = FieldIndex.not_analyzed, store = true)
 	private String filename;
@@ -41,12 +45,23 @@ public class IndexUnit {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 	public String getKeywords() {
 		return keywords;
 	}
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
+	}
+	public Integer getPublicationYear() {
+		return publicationYear;
+	}
+	public void setPublicationYear(Integer publicationYear) {
+		this.publicationYear = publicationYear;
 	}
 	public String getFilename() {
 		return filename;
@@ -60,5 +75,12 @@ public class IndexUnit {
 	public void setFiledate(String filedate) {
 		this.filedate = filedate;
 	}
+	@Override
+	public String toString() {
+		return "IndexUnit [text=" + text + ", title=" + title + ", author=" + author + ", keywords=" + keywords
+				+ ", publicationYear=" + publicationYear + ", filename=" + filename + ", filedate=" + filedate + "]";
+	}
+
+	
 	
 }

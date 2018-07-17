@@ -3,6 +3,7 @@ import { LanguageService } from '../service/language.service';
 import { CategoryService } from '../service/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EbookrepositoryService } from '../service/ebookrepository.service';
+import { IndexUnit } from '../model/indexUnit';
 
 @Component({
   selector: 'app-ebook-create',
@@ -15,7 +16,7 @@ export class EbookCreateComponent implements OnInit {
   public categories = [];
 
   public categoryId;
-  public book = { title: "", author: "", keywords: "", publicationYear: "", languageName: "", categoryName: "" };
+  public book = { title: "", author: "", keywords: "", filename: "", publicationYear: "", languageName: "", categoryName: "" };
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -62,10 +63,26 @@ export class EbookCreateComponent implements OnInit {
         let file: File = fileList[0];
         console.log(file);
         this.eBookService.upload(file)
-        .subscribe(x => {
-            console.log(x)
+        .subscribe(data => {
+            console.log(data)
+            this.book.title = data.title.toString();
+            this.book.author = data.author.toString();
+            this.book.filename = data.filename.toString();
+            this.book.keywords = data.keywords.toString();
+            this.book.publicationYear = data.publicationYear.toString();
         });
     }
+}
+public index() {
+  this.eBookService.index()
+    .subscribe(
+      data => {
+        
+      },
+      error => {
+        console.log(error);
+      }
+    );
 }
 
 }

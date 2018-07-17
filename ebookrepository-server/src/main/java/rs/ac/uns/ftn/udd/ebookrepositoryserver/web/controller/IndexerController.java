@@ -60,46 +60,50 @@ public class IndexerController {
 	}
 
 	@PostMapping("/index/add")
-	public ResponseEntity<String> multiUploadFileModel(@RequestParam(value = "file") MultipartFile file) {
+	public ResponseEntity<IndexUnit> multiUploadFileModel(@RequestParam(value = "file") MultipartFile file) {
 
 		if(!file.getContentType().equals("application/pdf")){
-			return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
+			return new ResponseEntity<IndexUnit>(HttpStatus.FORBIDDEN);
 		}
+		
+		IndexUnit indexUnit = indexUploadedFile(file);
 
-		try {
-
-			indexUploadedFile(file);
-
-		} catch (IOException e) {
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-		}
-
+		System.out.println(indexUnit.toString());
+	
 		System.out.println("Successfully uploaded!");
-		return new ResponseEntity<String>(HttpStatus.OK);
+		return new ResponseEntity<IndexUnit>(indexUnit, HttpStatus.OK);
 
 	}
 
 
 	//save file
-	private String saveUploadedFile(MultipartFile file) throws IOException {
+	private String saveUploadedFile(MultipartFile file) {
 		String retVal = null;
 		if (! file.isEmpty()) {
-			byte[] bytes = file.getBytes();
-			Path path = Paths.get(getResourceFilePath(DATA_DIR_PATH).getAbsolutePath() + File.separator + file.getOriginalFilename());
-			Files.write(path, bytes);
-			retVal = path.toString();
+			byte[] bytes;
+			try {
+				bytes = file.getBytes();
+				Path path = Paths.get(getResourceFilePath(DATA_DIR_PATH).getAbsolutePath() + File.separator + file.getOriginalFilename());
+				Files.write(path, bytes);
+				retVal = path.toString();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return retVal;
 	}
 
-	private void indexUploadedFile(MultipartFile file) throws IOException{
+	private IndexUnit indexUploadedFile(MultipartFile file) {
 
 		String fileName = saveUploadedFile(file);
 		if(fileName != null){
 			IndexUnit indexUnit = indexer.getHandler(fileName).getIndexUnit(new File(fileName));
 			indexer.add(indexUnit);
+			
+			return indexUnit;
 		}
+		return null;
 	}
 
 
