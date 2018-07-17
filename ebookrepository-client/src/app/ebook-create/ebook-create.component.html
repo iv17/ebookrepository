@@ -9,61 +9,44 @@
       <div class="col-lg-8">
         <div class="block">
           <div class="title">
-            <strong class="d-block">Upload nove knjige</strong>
+            <strong class="d-block">Dodavanje nove knjige</strong>
           </div>
+          <br>
           <div class="block-body">
-            <form class="form-horizontal">
+            <form class="form-horizontal" id="fileUploadForm">
               <div class="form-group">
-                <input type="file" id="avatar" name="avatar" [(ngModel)]="file" 
-                accept="application/pdf,
-                 application/msword,
-                 application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
-              </div>
-              <div class="form-group">
-                <button (click)="upload()" class="btn btn-primary">Upload</button>
+                <input type="file" id="avatar" name="avatar" accept="application/pdf"
+                (change)="uploadFile($event)"/>
               </div>
             </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="no-padding-top">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="block">
-          <div class="title">
-            <strong class="d-block">Dodavanje nove knjige</strong>
           </div>
           <div class="block-body">
             <form class="form-horizontal">
               <div class="form-group">
                 <label class="form-control-label">Naslov</label>
-                <input type="text" name="name" [(ngModel)]="newBook.title" class="form-control">
+                <input type="text" name="name" [(ngModel)]="book.title" class="form-control">
               </div>
               <div class="form-group">
                 <label class="form-control-label">Autor</label>
-                <input type="text" name="author" [(ngModel)]="newBook.author" class="form-control">
+                <input type="text" name="author" [(ngModel)]="book.author" class="form-control">
               </div>
               <div class="form-group">
                 <label class="form-control-label">Kljucne reci</label>
-                <input type="text" name="keywords" [(ngModel)]="newBook.keywords" class="form-control">
+                <input type="text" name="keywords" [(ngModel)]="book.keywords" class="form-control">
               </div>
               <div class="form-group">
                 <label class="form-control-label">Godina izdanja</label>
-                <input type="text" name="publicationYear" [(ngModel)]="newBook.publicationYear" class="form-control">
+                <input type="text" name="publicationYear" [(ngModel)]="book.publicationYear" class="form-control">
               </div>
               <div class="form-group">
                 <label for="power">Kategorija</label>
-                <select class="form-control" required name="category" [(ngModel)]="newBook.categoryName">
+                <select class="form-control" required name="category" [(ngModel)]="book.categoryName">
                   <option *ngFor="let cat of categories" [value]="cat.name">{{cat.name}}</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="power">Jezik</label>
-                <select class="form-control" required name="category" [(ngModel)]="newBook.languageName">
+                <select class="form-control" required name="category" [(ngModel)]="book.languageName">
                   <option *ngFor="let lang of languages" [value]="lang.name">{{lang.name}}</option>
                 </select>
               </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageService } from '../service/language.service';
 import { CategoryService } from '../service/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EbookrepositoryService } from '../service/ebookrepository.service';
 
 @Component({
   selector: 'app-ebook-create',
@@ -13,15 +14,14 @@ export class EbookCreateComponent implements OnInit {
   public languages = [];
   public categories = [];
 
-  public file: any;
-
   public categoryId;
-  public newBook = { title: "", author: "", keywords: "", publicationYear: "", languageName: "", categoryName: "" };
+  public book = { title: "", author: "", keywords: "", publicationYear: "", languageName: "", categoryName: "" };
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private categoryService: CategoryService,
-    private languageService: LanguageService) { 
+    private languageService: LanguageService,
+    private eBookService: EbookrepositoryService) { 
     
     }
 
@@ -52,11 +52,20 @@ export class EbookCreateComponent implements OnInit {
       );
   }
 
-  public upload() {
-    console.log(this.file);
-  }
   public addNewBook() {
     this.router.navigateByUrl('/home/categories/ebooks/1');
   }
   
+  uploadFile(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        console.log(file);
+        this.eBookService.upload(file)
+        .subscribe(x => {
+            console.log(x)
+        });
+    }
+}
+
 }

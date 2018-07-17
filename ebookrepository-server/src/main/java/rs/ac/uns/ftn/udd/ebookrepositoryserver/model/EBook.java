@@ -35,7 +35,7 @@ public class EBook implements Serializable {
 	@Column(name = "publication_year", nullable = true)
 	private int publicationYear;
 	
-	@Column(name = "filename", nullable = false)
+	@Column(name = "filename", nullable = false, unique = true)
 	private String filename;
 	
 	@Column(name = "mime", nullable = true)

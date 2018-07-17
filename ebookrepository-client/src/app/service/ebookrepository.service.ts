@@ -33,4 +33,15 @@ export class EbookrepositoryService {
     };
     return this.http.put<Ebook>(`${this.baseUrl}/${id}`, book, options);
   }
+
+  upload(book: any): Observable<Ebook> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    let formData:FormData = new FormData();
+    formData.append('file', book);
+  
+    return this.http.post<Ebook>(`http://localhost:8080/index/add`, formData, options);
+}
+
 }
