@@ -37,13 +37,12 @@ public class PDFHandler extends DocumentHandler {
 			String keywords = ""+info.getKeywords();
 			retVal.setKeywords(keywords);
 			
-			retVal.setFilename(file.getAbsolutePath());
-			
 			String publicationYear = DateTools.dateToString(new Date(file.lastModified()),DateTools.Resolution.YEAR);
 			retVal.setPublicationYear(Integer.parseInt(publicationYear));
 			
-			String modificationDate=DateTools.dateToString(new Date(file.lastModified()),DateTools.Resolution.DAY);
-			retVal.setFiledate(modificationDate);
+			retVal.setMime("PDF");
+			
+			retVal.setFilename(file.getAbsolutePath());
 			
 			pdf.close();
 		} catch (IOException e) {

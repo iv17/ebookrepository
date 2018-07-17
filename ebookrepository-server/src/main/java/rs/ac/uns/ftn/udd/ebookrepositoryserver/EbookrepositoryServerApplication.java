@@ -53,12 +53,12 @@ public class EbookrepositoryServerApplication implements CommandLineRunner {
         User user1 = new User("Ivana", "Savin", "ivana.unitedforce@gmail.com", "ivana", "PRETPLATNIK", category1);
         userService.save(user1);
 
-        EBook eBook1 = new EBook(1, "Ana Karenjina", "Lav Nikolajevic Tolstoj", "Ana Karenjina, Grof Vronski, Ljevin", 1877, "Ana Karenjina", "pdf", category1, language1, user1);
+        /*EBook eBook1 = new EBook(1, "Ana Karenjina", "Lav Nikolajevic Tolstoj", "Ana Karenjina, Grof Vronski, Ljevin", 1877, "Ana Karenjina", "pdf", category1, language1, user1);
         EBook eBook2 = new EBook(2, "Sto godina samoce", "Gabrijel Garsija Markes", "Sto godina samoce", 1967, "Sto godina samoce", "pdf", category1, language1, user1);
         EBook eBook3 = new EBook(3, "Lovac u zitu", "Dzerom Dejvid Selindzer", "Lovac u zitu", 1951, "Lovac u zitu", "pdf", category1, language2, user1);
         eBookService.save(eBook1);
         eBookService.save(eBook2);
-        eBookService.save(eBook3);
+        eBookService.save(eBook3);*/
       
     }
 

@@ -16,7 +16,7 @@ export class EbookCreateComponent implements OnInit {
   public categories = [];
 
   public categoryId;
-  public book = { title: "", author: "", keywords: "", filename: "", publicationYear: "", languageName: "", categoryName: "" };
+  public book = { title: "", author: "", keywords: "", fileName: "", publicationYear: "", languageName: "", categoryName: "" };
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -54,7 +54,22 @@ export class EbookCreateComponent implements OnInit {
   }
 
   public addNewBook() {
-    this.router.navigateByUrl('/home/categories/ebooks/1');
+    this.eBookService.create(this.book)
+    .subscribe(
+      data => {
+        console.log(data)
+        this.book.title = data.title.toString();
+        this.book.author = data.author.toString();
+        this.book.fileName = data.filename.toString();
+        this.book.keywords = data.keywords.toString();
+        this.book.publicationYear = data.publicationYear.toString();
+        this.book.categoryName = data.categoryName.toString();
+        this.book.languageName = data.languageName.toString();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   
   uploadFile(event) {
@@ -67,7 +82,7 @@ export class EbookCreateComponent implements OnInit {
             console.log(data)
             this.book.title = data.title.toString();
             this.book.author = data.author.toString();
-            this.book.filename = data.filename.toString();
+            this.book.fileName = data.filename.toString();
             this.book.keywords = data.keywords.toString();
             this.book.publicationYear = data.publicationYear.toString();
         });

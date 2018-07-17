@@ -19,14 +19,14 @@ export class EbookrepositoryService {
   getAllByCategory(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${id}/category`);
   }
-  getAll(): Observable<any> {
+  /*getAll(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}`);
-  }
-  create(book): Observable<Ebook> {
+  }*/
+  create(book): Observable<IndexUnit> {
     const options = {
       headers: new HttpHeaders()
     };
-    return this.http.post<Ebook>(`${this.baseUrl}`, book, options);
+    return this.http.post<IndexUnit>(`${this.baseUrl}`, book, options);
   }
   update(id: number, book): Observable<Ebook> {
     const options = {
@@ -47,5 +47,7 @@ export class EbookrepositoryService {
   index(): Observable<any> {
     return this.http.get<any>(`http://localhost:8080/reindex`);
   }
-
+  getAll(): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080`);
+  }
 }

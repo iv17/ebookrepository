@@ -6,16 +6,17 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Document(indexName = IndexUnit.INDEX_NAME, type = IndexUnit.TYPE_NAME, shards = 1, replicas = 0)
 public class IndexUnit {
 
 	public static final String INDEX_NAME = "digitallibrary";
 	public static final String TYPE_NAME = "book";
 	
-	public static final String DATE_PATTERN = "yyyy-MM-dd";
-
+	
+	@Id
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed, store = true)
+	private String filename;
+	
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
 	private String text;
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
@@ -26,13 +27,20 @@ public class IndexUnit {
 	private String keywords;
 	@Field(type = FieldType.Integer, index = FieldIndex.analyzed, store = true)
 	private Integer publicationYear;
-	@Id
-	@Field(type = FieldType.String, index = FieldIndex.not_analyzed, store = true)
-	private String filename;
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
-	private String filedate;
+	private String mime;
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String categoryName;
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String languageName;
 	
+	
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 	public String getText() {
 		return text;
 	}
@@ -63,24 +71,31 @@ public class IndexUnit {
 	public void setPublicationYear(Integer publicationYear) {
 		this.publicationYear = publicationYear;
 	}
-	public String getFilename() {
-		return filename;
+	public String getMime() {
+		return mime;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setMime(String mime) {
+		this.mime = mime;
 	}
-	public String getFiledate() {
-		return filedate;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setFiledate(String filedate) {
-		this.filedate = filedate;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
+	public String getLanguageName() {
+		return languageName;
+	}
+	public void setLanguageName(String languageName) {
+		this.languageName = languageName;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "IndexUnit [text=" + text + ", title=" + title + ", author=" + author + ", keywords=" + keywords
-				+ ", publicationYear=" + publicationYear + ", filename=" + filename + ", filedate=" + filedate + "]";
+		return "IndexUnit [filename=" + filename + ", text=" + text + ", title=" + title + ", author=" + author
+				+ ", keywords=" + keywords + ", publicationYear=" + publicationYear + ", mime=" + mime
+				+ ", categoryName=" + categoryName + ", languageName=" + languageName + "]";
 	}
-
-	
 	
 }

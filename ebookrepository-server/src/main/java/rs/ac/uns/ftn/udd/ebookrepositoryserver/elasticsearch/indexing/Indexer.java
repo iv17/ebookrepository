@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.handlers.DocumentHandler;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.handlers.PDFHandler;
-import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.handlers.TextDocHandler;
-import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.handlers.Word2007Handler;
-import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.handlers.WordHandler;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.repository.IndexUnitRepository;
 
@@ -24,6 +21,14 @@ public class Indexer {
 	public Indexer() {
 	}
 	
+	
+	public IndexUnit findByFilename(String filename) {
+		return repository.findByFilename(filename);
+	}
+	
+	public Iterable<IndexUnit> findAll() {
+		return repository.findAll();
+	}
 	
 	public boolean delete(String filename){
 		if(repository.equals(filename)){
@@ -89,14 +94,8 @@ public class Indexer {
 	
 
 	public DocumentHandler getHandler(String fileName){
-		if(fileName.endsWith(".txt")){
-			return new TextDocHandler();
-		}else if(fileName.endsWith(".pdf")){
+		if(fileName.endsWith(".pdf")){
 			return new PDFHandler();
-		}else if(fileName.endsWith(".doc")){
-			return new WordHandler();
-		}else if(fileName.endsWith(".docx")){
-			return new Word2007Handler();
 		}else{
 			return null;
 		}
