@@ -10,6 +10,7 @@ import { IndexUnit } from '../model/indexUnit';
 export class EbookrepositoryService {
 
   private baseUrl = 'http://localhost:8080/api/books';
+  private indexerUrl = 'http://localhost:8080/api/indexer';
 
   constructor(private http: HttpClient) { }
 
@@ -19,15 +20,23 @@ export class EbookrepositoryService {
   getAllByCategory(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${id}/category`);
   }
-  /*getAll(): Observable<any> {
+  getAll(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}`);
-  }*/
-  create(book): Observable<IndexUnit> {
+  }
+  create(book): Observable<Ebook> {
     const options = {
       headers: new HttpHeaders()
     };
-    return this.http.post<IndexUnit>(`${this.baseUrl}`, book, options);
+    this.http.post(`${this.indexerUrl}`, book, options);
+    return this.http.post<Ebook>(`${this.baseUrl}`, book, options);
   }
+  createIndex(book): Observable<IndexUnit> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return  this.http.post<IndexUnit>(`${this.indexerUrl}`, book, options);
+  }
+
   update(id: number, book): Observable<Ebook> {
     const options = {
       headers: new HttpHeaders()
@@ -42,12 +51,10 @@ export class EbookrepositoryService {
     let formData: FormData = new FormData();
     formData.append('file', book);
 
-    return this.http.post<IndexUnit>(`http://localhost:8080/index/add`, formData, options);
+    return this.http.post<IndexUnit>(`${this.indexerUrl}/upload`, formData, options);
   }
   index(): Observable<any> {
-    return this.http.get<any>(`http://localhost:8080/reindex`);
+    return this.http.get<any>(`${this.indexerUrl}/reindex`);
   }
-  getAll(): Observable<any> {
-    return this.http.get<any>(`http://localhost:8080`);
-  }
+
 }

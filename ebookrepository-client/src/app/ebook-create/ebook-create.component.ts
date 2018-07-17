@@ -16,15 +16,15 @@ export class EbookCreateComponent implements OnInit {
   public categories = [];
 
   public categoryId;
-  public book = { title: "", author: "", keywords: "", fileName: "", publicationYear: "", languageName: "", categoryName: "" };
+  public book = { title: "", author: "", keywords: "", filename: "", publicationYear: "", languageName: "", categoryName: "" };
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private categoryService: CategoryService,
     private languageService: LanguageService,
-    private eBookService: EbookrepositoryService) { 
-    
-    }
+    private eBookService: EbookrepositoryService) {
+
+  }
 
   ngOnInit() {
     this.populateCategories();
@@ -53,51 +53,58 @@ export class EbookCreateComponent implements OnInit {
       );
   }
 
-  public addNewBook() {
-    this.eBookService.create(this.book)
-    .subscribe(
-      data => {
-        console.log(data)
-        this.book.title = data.title.toString();
-        this.book.author = data.author.toString();
-        this.book.fileName = data.filename.toString();
-        this.book.keywords = data.keywords.toString();
-        this.book.publicationYear = data.publicationYear.toString();
-        this.book.categoryName = data.categoryName.toString();
-        this.book.languageName = data.languageName.toString();
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-  
   uploadFile(event) {
     let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-        let file: File = fileList[0];
-        console.log(file);
-        this.eBookService.upload(file)
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      this.eBookService.upload(file)
         .subscribe(data => {
-            console.log(data)
-            this.book.title = data.title.toString();
-            this.book.author = data.author.toString();
-            this.book.fileName = data.filename.toString();
-            this.book.keywords = data.keywords.toString();
-            this.book.publicationYear = data.publicationYear.toString();
+          console.log(data)
+          this.book.title = data.title.toString();
+          this.book.author = data.author.toString();
+          this.book.filename = data.filename.toString();
+          this.book.keywords = data.keywords.toString();
+          this.book.publicationYear = data.publicationYear.toString();
         });
     }
-}
-public index() {
-  this.eBookService.index()
+  }
+  originalData:any;
+  public addNewBook() {
+    this.originalData = this.book;
+    this.eBookService.createIndex(this.book)
     .subscribe(
       data => {
-        
+       console.log("Successfully indexed!");
       },
       error => {
         console.log(error);
       }
     );
-}
+    this.eBookService.create(this.originalData)
+      .subscribe(
+        data => {
+          this.book.title = data.title.toString();
+          this.book.author = data.author.toString();
+          this.book.filename = data.filename.toString();
+          this.book.keywords = data.keywords.toString();
+          this.book.publicationYear = data.publicationYear.toString();
+          this.book.categoryName = data.categoryName.toString();
+          this.book.languageName = data.languageName.toString();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    
+  }
+  public index() {
+    this.eBookService.index()
+      .subscribe(
+        data => { },
+        error => {
+          console.log(error);
+        }
+      );
+  }
 
 }

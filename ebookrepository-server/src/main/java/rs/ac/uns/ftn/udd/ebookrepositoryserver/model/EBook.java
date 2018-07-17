@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ebook")
-//@Document(indexName = "iv", type = "books")
 public class EBook implements Serializable {
 
 	private static final long serialVersionUID = 1794404948542221514L;
@@ -149,7 +148,6 @@ public class EBook implements Serializable {
 	public void setCataloguer(User cataloguer) {
 		this.cataloguer = cataloguer;
 	}
-
 
 	@Override
 	public String toString() {

@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.udd.ebookrepositoryserver.converters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.EBook;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.CategoryService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.LanguageService;
@@ -29,6 +30,7 @@ public class EBookConverter {
 		eBook.setAuthor(dto.getAuthor());
 		eBook.setFilename(dto.getFilename());
 		eBook.setPublicationYear(dto.getPublicationYear());
+		eBook.setKeywords(dto.getKeywords());
 		eBook.setMime(dto.getMime());
 		eBook.setCategory(categoryService.findByName(dto.getCategoryName()));
 		eBook.setLanguage(languageService.findByName(dto.getLanguageName()));
@@ -45,12 +47,27 @@ public class EBookConverter {
 		dto.setAuthor(eBook.getAuthor());
 		dto.setFilename(eBook.getFilename());
 		dto.setPublicationYear(eBook.getPublicationYear());
+		dto.setKeywords(eBook.getKeywords());
 		dto.setMime(eBook.getMime());
 		dto.setCategoryName(eBook.getCategory().getName());
 		dto.setLanguageName(eBook.getLanguage().getName());
 		dto.setCataloguerName(eBook.getCataloguer().getEmail());
 		
 		return dto;
+	}
+	
+	public IndexUnit convert2I(EBookDTO dto) {
+		IndexUnit index = new IndexUnit();
+		
+		index.setTitle(dto.getTitle());
+		index.setAuthor(dto.getAuthor());
+		index.setFilename(dto.getFilename());
+		index.setKeywords(dto.getKeywords());
+		index.setPublicationYear(dto.getPublicationYear());
+		index.setLanguageName(dto.getLanguageName());
+		index.setCategoryName(dto.getCategoryName());
+		
+		return index;
 	}
 	
 }

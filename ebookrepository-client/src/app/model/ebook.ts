@@ -4,7 +4,7 @@ export class Ebook {
     author: String;
     keywords: String;
     publicationYear: number;
-    fileName: String;
+    filename: String;
     MIME: String;
     categoryName: String;
     languageName: String;
@@ -15,7 +15,7 @@ export class Ebook {
         this.author = inter.author;
         this.keywords = inter.keywords;
         this.publicationYear = inter.publicationYear;
-        this.fileName = inter.fileName;
+        this.filename = inter.filename;
         this.MIME = inter.MIME;
         this.categoryName = inter.categoryName;
         this.languageName = inter.languageName;
@@ -27,7 +27,7 @@ interface EBookInterface {
     author?: String;
     keywords?: String;
     publicationYear?: number;
-    fileName?: String;
+    filename?: String;
     MIME?: String;
     categoryName?: String;
     languageName?: String;
