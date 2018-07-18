@@ -3,6 +3,7 @@ import { CategoryService } from '../service/category.service';
 import { LanguageService } from '../service/language.service';
 import { EbookrepositoryService } from '../service/ebookrepository.service';
 import { SimpleQuery } from '../model/simpleQuery';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ebook-list-search',
@@ -16,7 +17,7 @@ export class EbookListSearchComponent implements OnInit {
   public categories = [];
 
   public row = { title: "", author: "", publicationYear: "", languageName: "" };
-  public book = { title: "", author: "", keywords: "", publicationYear: "", languageName: "" };
+  public book = { title: "", author: "", keywords: "", publicationYear: "", languageName: "", filename: "" };
 
   public title = "";
   public author = "";
@@ -24,14 +25,18 @@ export class EbookListSearchComponent implements OnInit {
   public languageName = "";
 
   public simpleQuery = new SimpleQuery;
+
   constructor(private categoryService: CategoryService,
     private languageService: LanguageService,
-    private eBookRepositoryService: EbookrepositoryService) { }
+    private eBookRepositoryService: EbookrepositoryService,
+    private sanitizer: DomSanitizer) { }
+
 
   ngOnInit() {
     this.populate();
     this.populateCategories();
     this.populateLanguages();
+
   }
   public populateCategories() {
     this.categoryService.getAll()
@@ -55,6 +60,8 @@ export class EbookListSearchComponent implements OnInit {
         }
       );
   }
+  trustedUrl;
+
   public populate() {
     this.eBookRepositoryService.getAll()
       .subscribe(

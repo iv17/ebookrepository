@@ -1,9 +1,15 @@
 package rs.ac.uns.ftn.udd.ebookrepositoryserver.web.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,19 +38,19 @@ public class EBookRepositoryController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	CategoryService categoryService;
 
 	@Autowired
 	EBookService eBookService;
-	
+
 	@Autowired
 	CategoryConverter categoryConverter;
-	
+
 	@Autowired
 	EBookConverter eBookConverter;
-	
+
 	@RequestMapping(
 			value = "/{id}",
 			method = RequestMethod.GET,
@@ -53,12 +59,12 @@ public class EBookRepositoryController {
 	public ResponseEntity<EBookDTO> getById(@PathVariable int id, Authentication authentication) {
 
 		EBook eBook = eBookService.findById(id);
-		
+
 		EBookDTO response = eBookConverter.convert(eBook);
-		
+
 		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(
 			value = "/{categoryId}/category",
 			method = RequestMethod.GET,
@@ -69,14 +75,14 @@ public class EBookRepositoryController {
 		Category category = categoryService.findById(categoryId);
 
 		List<EBook> ebooks = eBookService.findByCategory(category);
-		
+
 		List<EBookDTO> response = new ArrayList<>();
 		for (EBook eBook : ebooks) {
 			response.add(eBookConverter.convert(eBook));
 		}
 		return new ResponseEntity<List<EBookDTO>>(response, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE
@@ -84,34 +90,59 @@ public class EBookRepositoryController {
 	public ResponseEntity<List<EBookDTO>> getAll(Authentication authentication) {
 
 		Iterable<EBook> eBooks = eBookService.findAll();
-		
+
 		List<EBookDTO> response = new ArrayList<>();
 		for (EBook eBook : eBooks) {
 			response.add(eBookConverter.convert(eBook));
 		}
-		
+
 		return new ResponseEntity<List<EBookDTO>>(response, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
 	public ResponseEntity<EBookDTO> create(@RequestBody EBookDTO request, Authentication authentication) {
-		
+
 		User user = userService.findByEmail(authentication.getName());
-		
+
 		EBook eBook = eBookConverter.convert(request);
-		
+
 		eBook.setMime("PDF");
 		eBook.setCataloguer(user);
 		eBookService.save(eBook);
-		
+
 		EBookDTO response = eBookConverter.convert(eBook);
-		
+
 		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
-	
+
 	}
 	
+	@RequestMapping(
+			value="download/{id}",
+			method=RequestMethod.GET)
+	public ResponseEntity<?> download(@PathVariable int id) throws IOException{
+
+		EBook ebook = eBookService.findById(id);
+
+		Path path = Paths.get(ebook.getFilename());
+		if(new File(ebook.getFilename()).exists()) {
+
+			byte[] content = Files.readAllBytes(path);
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.parseMediaType("application/pdf"));
+			headers.setContentDispositionFormData(ebook.getFilename(), ebook.getFilename());
+			headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+
+			return new ResponseEntity<byte[]>(content,headers,HttpStatus.OK);
+
+
+		}
+
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
 }

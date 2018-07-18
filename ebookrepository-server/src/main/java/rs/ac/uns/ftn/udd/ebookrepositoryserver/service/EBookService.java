@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.udd.ebookrepositoryserver.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,18 @@ public class EBookService {
 
 	public EBook save(EBook eBook) {
 		return eBookRepository.save(eBook);
+	}
+	
+	public File download(int id) {
+		
+		EBook eBook = eBookRepository.findById(id);
+		
+		File pdf = new File(eBook.getFilename());
+		if(!pdf.exists()){
+			return null;	
+		}
+		
+		return pdf;
 	}
 	
 }

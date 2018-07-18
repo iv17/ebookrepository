@@ -54,6 +54,9 @@ export class EbookrepositoryService {
 
     return this.http.post<IndexUnit>(`${this.indexerUrl}/upload`, formData, options);
   }
+  download(id: number) {
+    return this.http.get(`${this.baseUrl}/download/${id}`, { responseType: 'blob' });
+  }
   index(): Observable<any> {
     return this.http.get<any>(`${this.indexerUrl}/reindex`);
   }

@@ -9,13 +9,14 @@ public final class ResultData {
 	private String languageName;
 	private String categoryName;
 	private int publicationYear;
+	private String location;
 	
 	public ResultData() {
 		super();
 	}
 
 	public ResultData(String title, String keywords, String highlight, String author, String languageName,
-			String categoryName, int publicationYear) {
+			String categoryName, int publicationYear,  String location) {
 		super();
 		this.title = title;
 		this.keywords = keywords;
@@ -24,6 +25,7 @@ public final class ResultData {
 		this.languageName = languageName;
 		this.categoryName = categoryName;
 		this.publicationYear = publicationYear;
+		this.location = location;
 	}
 
 	public String getTitle() {
@@ -82,5 +84,12 @@ public final class ResultData {
 		this.publicationYear = publicationYear;
 	}
 
-	
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 }
