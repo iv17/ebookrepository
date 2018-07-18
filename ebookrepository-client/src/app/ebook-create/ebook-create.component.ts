@@ -83,13 +83,7 @@ export class EbookCreateComponent implements OnInit {
     this.eBookService.create(this.originalData)
       .subscribe(
         data => {
-          this.book.title = data.title.toString();
-          this.book.author = data.author.toString();
-          this.book.filename = data.filename.toString();
-          this.book.keywords = data.keywords.toString();
-          this.book.publicationYear = data.publicationYear.toString();
-          this.book.categoryName = data.categoryName.toString();
-          this.book.languageName = data.languageName.toString();
+          this.router.navigateByUrl('/home/ebooks/' + data.id);
         },
         error => {
           console.log(error);

@@ -4,19 +4,26 @@ public final class ResultData {
 	
 	private String title;
 	private String keywords;
-	private String location;
 	private String highlight;
+	private String author;
+	private String languageName;
+	private String categoryName;
+	private int publicationYear;
 	
 	public ResultData() {
 		super();
 	}
 
-	public ResultData(String title, String keywords, String location, String highlight) {
+	public ResultData(String title, String keywords, String highlight, String author, String languageName,
+			String categoryName, int publicationYear) {
 		super();
 		this.title = title;
 		this.keywords = keywords;
-		this.location = location;
 		this.highlight = highlight;
+		this.author = author;
+		this.languageName = languageName;
+		this.categoryName = categoryName;
+		this.publicationYear = publicationYear;
 	}
 
 	public String getTitle() {
@@ -35,14 +42,6 @@ public final class ResultData {
 		this.keywords = keywords;
 	}
 
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
 	public String getHighlight() {
 		return highlight;
 	}
@@ -51,4 +50,37 @@ public final class ResultData {
 		this.highlight = highlight;
 	}
 
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getLanguageName() {
+		return languageName;
+	}
+
+	public void setLanguageName(String languageName) {
+		this.languageName = languageName;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public int getPublicationYear() {
+		return publicationYear;
+	}
+
+	public void setPublicationYear(int publicationYear) {
+		this.publicationYear = publicationYear;
+	}
+
+	
 }

@@ -33,4 +33,7 @@ export class EbookComponent implements OnInit {
     );
   }
 
+  download() {
+    
+  }
 }

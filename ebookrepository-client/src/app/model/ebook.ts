@@ -1,5 +1,6 @@
 
 export class Ebook {
+    id: number;
     title: String;
     author: String;
     keywords: String;
@@ -11,6 +12,7 @@ export class Ebook {
     cataloguerName: String;
     
     constructor(inter: EBookInterface = {}) {
+        this.id = inter.id;
         this.title = inter.title;
         this.author = inter.author;
         this.keywords = inter.keywords;
@@ -23,6 +25,7 @@ export class Ebook {
     }
 }
 interface EBookInterface {
+    id?: number;
     title?: String;
     author?: String;
     keywords?: String;

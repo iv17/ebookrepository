@@ -11,6 +11,7 @@ export class EbookrepositoryService {
 
   private baseUrl = 'http://localhost:8080/api/books';
   private indexerUrl = 'http://localhost:8080/api/indexer';
+  private searchUrl = 'http://localhost:8080/api/search';
 
   constructor(private http: HttpClient) { }
 
@@ -55,6 +56,25 @@ export class EbookrepositoryService {
   }
   index(): Observable<any> {
     return this.http.get<any>(`${this.indexerUrl}/reindex`);
+  }
+
+  searchTerm(simpleQuery): Observable<any> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return  this.http.post<any>(`${this.searchUrl}/term`, simpleQuery, options);
+  }
+  searchFuzzy(simpleQuery): Observable<any> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return  this.http.post<any>(`${this.searchUrl}/fuzzy`, simpleQuery, options);
+  }
+  searchPhrase(simpleQuery): Observable<any> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return  this.http.post<any>(`${this.searchUrl}/phrase`, simpleQuery, options);
   }
 
 }

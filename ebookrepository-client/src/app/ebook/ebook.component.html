@@ -1,12 +1,12 @@
 <div class="container" style="margin-top: 84px;">
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 toppad">
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title">{{ eBook.title }}</h3>
+        <h3 class="panel-title"></h3>
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class=" col-md-12 col-lg-12 ">
+          <div class=" col-md-6 col-lg-6 ">
             <table class="table table-user-information">
               <tbody>
                 <tr>
@@ -16,6 +16,10 @@
                 <tr>
                   <td>Author:</td>
                   <td>{{ eBook.author }}</td>
+                </tr>
+                <tr>
+                  <td>Keywords:</td>
+                  <td>{{ eBook.keywords }}</td>
                 </tr>
                 <tr>
                   <td>Publication year:</td>
@@ -44,7 +48,15 @@
               </tbody>
             </table>
 
-            <button class="btn btn-md btn-primary btn-block" type="submit">Download</button>
+            <button (click)="download()" class="btn btn-md btn-primary btn-block" type="submit">Download</button>
+          </div>
+          <div class=" col-md-6 col-lg-6 ">
+            <div class="form-group">
+              <label class="form-control-label">Highlight</label>
+              <textarea rows="17" class="form-control" [(ngModel)]="eBook.filename" readonly></textarea>
+            </div>
+            <button class="btn btn-md btn-success btn-block" type="submit">Edit</button>
+            <button class="btn btn-md btn-danger btn-block" type="submit">Delete</button>
           </div>
         </div>
       </div>
