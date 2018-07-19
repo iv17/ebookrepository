@@ -34,6 +34,11 @@ public class IndexUnit {
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
 	private String languageName;
 	
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String content;
+	
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed, store = true)
+	private String hightlight;
 	
 	public String getFilename() {
 		return filename;
@@ -90,7 +95,18 @@ public class IndexUnit {
 		this.languageName = languageName;
 	}
 	
-	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getHightlight() {
+		return hightlight;
+	}
+	public void setHightlight(String hightlight) {
+		this.hightlight = hightlight;
+	}
 	@Override
 	public String toString() {
 		return "IndexUnit [filename=" + filename + ", text=" + text + ", title=" + title + ", author=" + author

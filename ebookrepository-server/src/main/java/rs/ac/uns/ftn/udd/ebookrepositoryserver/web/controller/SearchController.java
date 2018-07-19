@@ -80,7 +80,7 @@ public class SearchController {
 		
 		@PostMapping(value="/search/boolean", consumes="application/json")
 		public ResponseEntity<List<ResultData>> searchBoolean(@RequestBody AdvancedQuery advancedQuery) throws Exception {
-			org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField1(), advancedQuery.getValue1());
+			/*org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField1(), advancedQuery.getValue1());
 			org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField2(), advancedQuery.getValue2());
 			
 			BoolQueryBuilder builder = QueryBuilders.boolQuery();
@@ -99,8 +99,10 @@ public class SearchController {
 			rh.add(new RequiredHighlight(advancedQuery.getField1(), advancedQuery.getValue1()));
 			rh.add(new RequiredHighlight(advancedQuery.getField2(), advancedQuery.getValue2()));
 			List<ResultData> results = resultRetriever.getResults(builder, rh);		
-			
+			return new ResponseEntity<List<ResultData>>(results, HttpStatus.OK);*/
+			List<ResultData> results = resultRetriever.search(advancedQuery);		
 			return new ResponseEntity<List<ResultData>>(results, HttpStatus.OK);
+			
 		}
 		
 		@PostMapping(value="/search/queryParser", consumes="application/json")

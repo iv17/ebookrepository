@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.Indexer;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.handlers.PDFHandler;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -33,7 +34,7 @@ import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
 public class IndexerController {
 
 	private static String DATA_DIR_PATH;
-
+	private PDFHandler pdfHandler = new PDFHandler();
 	static {
 		ResourceBundle rb=ResourceBundle.getBundle("application");
 		DATA_DIR_PATH=rb.getString("dataDir");
@@ -91,7 +92,8 @@ public class IndexerController {
 		indexUnit.setMime(request.getMime());
 		indexUnit.setCategoryName(request.getCategoryName());
 		indexUnit.setLanguageName(request.getLanguageName());
-		
+		String text = pdfHandler.getText(new File(request.getFilename()));
+		indexUnit.setContent(text);
 		indexer.update(indexUnit);
 		
 		System.out.println("Successfully indexed!");

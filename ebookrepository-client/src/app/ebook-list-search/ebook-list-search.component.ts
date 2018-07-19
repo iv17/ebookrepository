@@ -122,6 +122,16 @@ export class EbookListSearchComponent implements OnInit {
         this.advancedQuery.value2 = this.keywords;
       }
     }
+    if(this.content != null) {
+      if(this.advancedQuery.field1 == "") {
+        this.advancedQuery.field1 = "content";
+        this.advancedQuery.value1 = this.content;
+      }
+      else {
+        this.advancedQuery.field2 = "content";
+        this.advancedQuery.value2 = this.content;
+      }
+    }
     console.log(this.advancedQuery);
     this.eBookRepositoryService.searchBoolean(this.advancedQuery)
       .subscribe(
