@@ -11,6 +11,7 @@ import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.text.Text;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -35,6 +36,7 @@ import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.RequiredHighlight;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.ResultData;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.SearchType;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.SimpleQuery;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.repository.IndexUnitRepository;
 
 @Service
@@ -51,14 +53,102 @@ public class ResultRetriever {
 	
 	public ResultRetriever(){
 	}
+	public List<ResultData> search2(SimpleQuery simpleQuery) throws IllegalArgumentException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
 
+		org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), simpleQuery.getValue());
+		
+		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
+		rh.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
+		
+		SearchQuery sq = new NativeSearchQueryBuilder()
+				.withQuery(query)
+				.withHighlightFields(new HighlightBuilder.Field("content"), 
+						new HighlightBuilder.Field("title"), 
+						new HighlightBuilder.Field("keywords"), 
+						new HighlightBuilder.Field("author"),
+						new HighlightBuilder.Field("language"))
+				.build();
+
+		Page<IndexUnit> booksEntities = elasticsearchTemplate.queryForPage(sq, IndexUnit.class, new SearchResultMapper() {
+
+			@Override
+			public <T> AggregatedPage<T> mapResults(SearchResponse arg0, Class<T> arg1, Pageable arg2) {
+				List<IndexUnit> books = new ArrayList<IndexUnit>();
+				for(SearchHit searchHit : arg0.getHits()){
+					if(arg0.getHits().getHits().length <= 0){
+						return null;
+					}
+
+					IndexUnit resultData = new IndexUnit();
+					resultData.setTitle((String) searchHit.getSource().get("title"));
+					resultData.setKeywords((String) searchHit.getSource().get("keywords"));
+					resultData.setAuthor((String) searchHit.getSource().get("author"));
+				
+					if(searchHit.getHighlightFields() != null){
+						StringBuilder highlights = new StringBuilder("...");
+						
+						if(searchHit.getHighlightFields().get("content") != null){
+							Text [] text = searchHit.getHighlightFields().get("content").fragments();
+							for (Text t : text) {
+								System.out.println(t.toString());
+								System.out.println("+++++++++++++");
+								highlights.append(t.toString());
+								highlights.append("...");
+							}
+							
+						}
+					
+						/*if(searchHit.getHighlightFields().get("title") != null){
+							highlights.append(searchHit.getHighlightFields().get("title").fragments()[0].toString());
+							highlights.append("...");
+						}
+
+						if(searchHit.getHighlightFields().get("keywords") != null){
+							highlights.append(searchHit.getHighlightFields().get("keywords").fragments()[0].toString());
+							highlights.append("...");
+						}
+
+						if(searchHit.getHighlightFields().get("author") != null){
+							highlights.append(searchHit.getHighlightFields().get("author").fragments()[0].toString());
+							highlights.append("...");
+						}*/
+						System.out.println(highlights.toString());
+						System.out.println("----------------------");
+						resultData.setHightlight(highlights.toString());
+					}
+					books.add(resultData);
+
+				}
+
+				if(books.size() > 0){
+					return new AggregatedPageImpl<T>((List<T>) books);
+				}
+
+				return null;
+			}
+		});
+		List<ResultData> response = new ArrayList<>();
+		if(booksEntities != null){
+			
+			for (IndexUnit index : booksEntities) {
+				ResultData resultData = new ResultData();
+				resultData.setAuthor(index.getAuthor());
+				resultData.setTitle(index.getTitle());
+				resultData.setKeywords(index.getKeywords());
+				resultData.setHighlight(index.getHightlight());
+				response.add(resultData);
+			}
+		}
+		
+
+		return response;
+
+	}
 	public List<ResultData> search(AdvancedQuery advancedQuery) throws IllegalArgumentException, ParseException, org.apache.lucene.queryparser.classic.ParseException {
 
 		org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField1(), advancedQuery.getValue1());
 		org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField2(), advancedQuery.getValue2());
 		
-		System.out.println(query1.toString());
-		System.out.println(query2.toString());
 		
 		BoolQueryBuilder builder = QueryBuilders.boolQuery();
 		if(advancedQuery.getOperation().equalsIgnoreCase("AND")){

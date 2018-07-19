@@ -107,11 +107,13 @@ public class SearchController {
 		
 		@PostMapping(value="/search/queryParser", consumes="application/json")
 		public ResponseEntity<List<ResultData>> search(@RequestBody SimpleQuery simpleQuery) throws Exception {
-			org.elasticsearch.index.query.QueryBuilder query=QueryBuilders.queryStringQuery(simpleQuery.getValue());			
+			/*org.elasticsearch.index.query.QueryBuilder query=QueryBuilders.queryStringQuery(simpleQuery.getValue());			
 			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 			//TermQuery termQuery = new TermQuery(new Term(simpleQuery.getField()));
 			//List<ResultData> results = resultRetriever.getResultsWithHighlight(query, rh, termQuery);	
 			List<ResultData> results = resultRetriever.getResults(query, rh);
+			return new ResponseEntity<List<ResultData>>(results, HttpStatus.OK);*/
+			List<ResultData> results = resultRetriever.search2(simpleQuery);		
 			return new ResponseEntity<List<ResultData>>(results, HttpStatus.OK);
 		}
 	
