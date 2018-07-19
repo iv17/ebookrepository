@@ -19,7 +19,22 @@ public class SerbianAnalyzer extends Analyzer {
      */
     public static final String[] STOP_WORDS =
     {
-        "i","a","ili","ali","pa","te","da","u","po","na"
+        "i","a","ili","ali","pa","te","da","u","po","na",
+        "biti", "ne", 
+		"jesam", "sam", "jesi", "si", "je", "jesmo", "smo", "jeste", "ste", "jesu", "su",
+		"nijesam", "nisam", "nijesi", "nisi", "nije", "nijesmo", "nismo", "nijeste", "niste", "nijesu", "nisu",
+		"budem", "budeš", "bude", "budemo", "budete", "budu",
+		"budes",
+		"bih",  "bi", "bismo", "biste", "biše", 
+		"bise",
+		"bio", "bili", "budimo", "budite", "bila", "bilo", "bile", 
+		"ću", "ćeš", "će", "ćemo", "ćete", 
+		"neću", "nećeš", "neće", "nećemo", "nećete", 
+		"cu", "ces", "ce", "cemo", "cete",
+		"necu", "neces", "nece", "necemo", "necete",
+		"mogu", "možeš", "može", "možemo", "možete",
+		"mozes", "moze", "mozemo", "mozete",
+		"li", "da"
     };
 
     /**

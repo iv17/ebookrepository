@@ -10,6 +10,7 @@ export class IndexUnit {
     categoryName: String;
     languageName: String;
     cataloguerName: String;
+    highlight: String;
     
     constructor(inter: IndexUnitInterface = {}) {
         this.title = inter.title;
@@ -21,6 +22,7 @@ export class IndexUnit {
         this.categoryName = inter.categoryName;
         this.languageName = inter.languageName;
         this.cataloguerName = inter.cataloguerName;
+        this.highlight = inter.highlight;
     }
 }
 interface IndexUnitInterface {
@@ -34,4 +36,5 @@ interface IndexUnitInterface {
     categoryName?: String;
     languageName?: String;
     cataloguerName?: String;
+    highlight?: String;
 }

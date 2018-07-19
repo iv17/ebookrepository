@@ -47,14 +47,13 @@
                 </tr>
               </tbody>
             </table>
-            <button (click)="download()" class="btn btn-md btn-primary btn-block" type="submit">Download</button>
-            <br>
-          </div>
+           </div>
           <div class=" col-md-6 col-lg-6 ">
             <div class="form-group">
               <label class="form-control-label">Highlight</label>
-              <textarea rows="17" class="form-control" [(ngModel)]="eBook.highlight" readonly></textarea>
+              <textarea rows="14" class="form-control" [(ngModel)]="eBook.highlight" readonly></textarea>
             </div>
+            <button (click)="download()" class="btn btn-md btn-primary btn-block" type="submit">Download</button>
             <button class="btn btn-md btn-success btn-block" type="submit">Edit</button>
             <button class="btn btn-md btn-danger btn-block" type="submit">Delete</button>
           </div>

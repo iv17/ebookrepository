@@ -10,6 +10,7 @@ export class Ebook {
     categoryName: String;
     languageName: String;
     cataloguerName: String;
+    highlight: String;
     
     constructor(inter: EBookInterface = {}) {
         this.id = inter.id;
@@ -22,6 +23,7 @@ export class Ebook {
         this.categoryName = inter.categoryName;
         this.languageName = inter.languageName;
         this.cataloguerName = inter.cataloguerName;
+        this.highlight = inter.highlight;
     }
 }
 interface EBookInterface {
@@ -35,4 +37,5 @@ interface EBookInterface {
     categoryName?: String;
     languageName?: String;
     cataloguerName?: String;
+    highlight?: String;
 }

@@ -18,12 +18,14 @@ export class EbookListSearchComponent implements OnInit {
   public categories = [];
 
   public row = { title: "", author: "", publicationYear: "", languageName: "" };
-  public book = { title: "", author: "", keywords: "", publicationYear: "", languageName: "", filename: "" };
+  public book = { title: "", author: "", keywords: "", publicationYear: "", languageName: "", filename: "", hightlight: "" };
 
   public title = "";
   public author = "";
   public keywords = "";
   public languageName = "";
+
+  public content = "";
 
   public operationAND = "";
   public operationOR = "";
@@ -67,6 +69,20 @@ export class EbookListSearchComponent implements OnInit {
   }
   public populate() {
     this.eBookRepositoryService.getAll()
+      .subscribe(
+        data => {
+          this.books = data;
+          console.log(this.books)
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+  public searchByContent() {
+    this.simpleQuery.field = "content";
+    this.simpleQuery.value = this.content;
+    this.eBookRepositoryService.searchByContent(this.simpleQuery)
       .subscribe(
         data => {
           this.books = data;

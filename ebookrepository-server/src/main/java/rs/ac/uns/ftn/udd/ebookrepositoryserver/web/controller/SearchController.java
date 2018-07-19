@@ -3,6 +3,8 @@ package rs.ac.uns.ftn.udd.ebookrepositoryserver.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.TermQuery;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +35,10 @@ public class SearchController {
 		@PostMapping(value="/search/term", consumes="application/json")
 		public ResponseEntity<List<ResultData>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {		
 			org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), simpleQuery.getValue());
+			TermQuery termQuery = new TermQuery(new Term(simpleQuery.getField()));
 			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 			rh.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
-			List<ResultData> results = resultRetriever.getResults(query, rh);			
+			List<ResultData> results = resultRetriever.getResultsWithHighlight(query, rh, termQuery);			
 			return new ResponseEntity<List<ResultData>>(results, HttpStatus.OK);
 		}
 		
@@ -95,7 +98,8 @@ public class SearchController {
 			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 			rh.add(new RequiredHighlight(advancedQuery.getField1(), advancedQuery.getValue1()));
 			rh.add(new RequiredHighlight(advancedQuery.getField2(), advancedQuery.getValue2()));
-			List<ResultData> results = resultRetriever.getResults(builder, rh);			
+			List<ResultData> results = resultRetriever.getResults(builder, rh);		
+			
 			return new ResponseEntity<List<ResultData>>(results, HttpStatus.OK);
 		}
 		
@@ -103,6 +107,8 @@ public class SearchController {
 		public ResponseEntity<List<ResultData>> search(@RequestBody SimpleQuery simpleQuery) throws Exception {
 			org.elasticsearch.index.query.QueryBuilder query=QueryBuilders.queryStringQuery(simpleQuery.getValue());			
 			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
+			//TermQuery termQuery = new TermQuery(new Term(simpleQuery.getField()));
+			//List<ResultData> results = resultRetriever.getResultsWithHighlight(query, rh, termQuery);	
 			List<ResultData> results = resultRetriever.getResults(query, rh);
 			return new ResponseEntity<List<ResultData>>(results, HttpStatus.OK);
 		}
