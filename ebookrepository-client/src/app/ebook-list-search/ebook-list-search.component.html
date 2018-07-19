@@ -30,14 +30,6 @@
             <label class="form-control-label">Autor</label>
             <input type="text" name="author" [(ngModel)]="author" class="form-control">
           </div>
-          <div class="form-group" data-toggle="buttons1">
-            <label class="btn btn-md btn-success active">
-              <input type="radio" name="options1" id="option1" autocomplete="off">AND
-            </label>
-            <label class="btn btn-md btn-primary">
-              <input type="radio" name="options1" id="option2" autocomplete="off">OR
-            </label>
-          </div>
         </div>
         <br>
         <span class="form-group" class="col-sm-6">
@@ -55,14 +47,6 @@
           <div class="form-group" class="col-sm-6">
             <label class="form-control-label">Kljucne reci</label>
             <input type="text" name="keywords" [(ngModel)]="keywords" class="form-control">
-          </div>
-          <div class="form-group" data-toggle="buttons2">
-            <label class="btn btn-md btn-success active">
-              <input type="radio" name="options2" id="option1" autocomplete="off">AND
-            </label>
-            <label class="btn btn-md btn-primary">
-              <input type="radio" name="options2" id="option2" autocomplete="off">OR
-            </label>
           </div>
         </div>
         <br>
@@ -84,14 +68,6 @@
               <option *ngFor="let lang of languages" [value]="lang.name">{{lang.name}}</option>
             </select>
           </div>
-          <div class="form-group" data-toggle="buttons4">
-            <label class="btn btn-md btn-success active">
-              <input type="radio" name="options4" id="option1" autocomplete="off">AND
-            </label>
-            <label class="btn btn-md btn-primary">
-              <input type="radio" name="options4 " id="option2" autocomplete="off">OR
-            </label>
-          </div>
         </div>
         <br>
         <br>
@@ -105,10 +81,17 @@
           <button (click)="searchByLanguagePhraze()" class="btn btn-primary">Pretrazi po jeziku (phrase)</button>
         </span>
         <br><br>
-        <div class="form-group" class="col-sm-6">
-          <button (click)="search()" class="btn btn-primary">Pretrazi</button>
+        <div class="form-group">
+          <label class="btn btn-md btn-success active">
+            <input type="radio" name="options" value="AND" [(ngModel)]="operationAND">AND
+          </label>
+          <label class="btn btn-md btn-primary">
+            <input type="radio" name="options" value="OR" [(ngModel)]="operationOR">OR
+          </label>
         </div>
-        
+        <div class="form-group" class="col-sm-6">
+          <button (click)="searchBoolean()" class="btn btn-primary">Pretrazi</button>
+        </div>
       </div>
     </form>
   </div>

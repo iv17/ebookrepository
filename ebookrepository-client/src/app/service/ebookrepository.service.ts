@@ -80,4 +80,11 @@ export class EbookrepositoryService {
     return  this.http.post<any>(`${this.searchUrl}/phrase`, simpleQuery, options);
   }
 
+  searchBoolean(advancedQuery): Observable<any> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return  this.http.post<any>(`${this.searchUrl}/boolean`, advancedQuery, options);
+  }
+
 }

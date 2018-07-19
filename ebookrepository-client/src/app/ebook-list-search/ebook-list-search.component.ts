@@ -4,6 +4,7 @@ import { LanguageService } from '../service/language.service';
 import { EbookrepositoryService } from '../service/ebookrepository.service';
 import { SimpleQuery } from '../model/simpleQuery';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AdvancedQuery } from '../model/advancedQuery';
 
 @Component({
   selector: 'app-ebook-list-search',
@@ -24,12 +25,16 @@ export class EbookListSearchComponent implements OnInit {
   public keywords = "";
   public languageName = "";
 
+  public operationAND = "";
+  public operationOR = "";
+
+  public fieldTitle = "";
   public simpleQuery = new SimpleQuery;
+  public advancedQuery = new AdvancedQuery;
 
   constructor(private categoryService: CategoryService,
     private languageService: LanguageService,
-    private eBookRepositoryService: EbookrepositoryService,
-    private sanitizer: DomSanitizer) { }
+    private eBookRepositoryService: EbookrepositoryService) { }
 
 
   ngOnInit() {
@@ -60,8 +65,6 @@ export class EbookListSearchComponent implements OnInit {
         }
       );
   }
-  trustedUrl;
-
   public populate() {
     this.eBookRepositoryService.getAll()
       .subscribe(
@@ -74,7 +77,47 @@ export class EbookListSearchComponent implements OnInit {
         }
       );
   }
-
+  public searchBoolean() {
+    if(this.operationAND != "") {
+      this.advancedQuery.operation = this.operationAND;
+    } else {
+      this.advancedQuery.operation = this.operationOR;
+    }
+    if(this.title != "") {
+      this.advancedQuery.field1 = "title";
+      this.advancedQuery.value1 = this.title;
+    } 
+    if(this.author != "") {
+      if(this.advancedQuery.field1 == "") {
+        this.advancedQuery.field1 = "author";
+        this.advancedQuery.value1 = this.author;
+      } else {
+        this.advancedQuery.field2 = "author";
+        this.advancedQuery.value2 = this.author;
+      }
+    }
+    if(this.keywords != "") {
+      if(this.advancedQuery.field1 == "") {
+        this.advancedQuery.field1 = "keywords";
+        this.advancedQuery.value1 = this.keywords;
+      }
+      else {
+        this.advancedQuery.field2 = "keywords";
+        this.advancedQuery.value2 = this.keywords;
+      }
+    }
+    console.log(this.advancedQuery);
+    this.eBookRepositoryService.searchBoolean(this.advancedQuery)
+      .subscribe(
+        data => {
+          this.books = data;
+          console.log(this.books)
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
   public searchByTitleTerm() {
     this.simpleQuery.field = "title";
     this.simpleQuery.value = this.title;

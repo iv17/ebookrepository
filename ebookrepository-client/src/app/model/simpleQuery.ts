@@ -1,5 +1,3 @@
-import { Category } from "./category";
-
 export class SimpleQuery {
     field: String;
     value: String;
