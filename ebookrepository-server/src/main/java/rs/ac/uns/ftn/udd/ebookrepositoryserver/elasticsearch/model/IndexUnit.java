@@ -111,7 +111,9 @@ public class IndexUnit {
 	public String toString() {
 		return "IndexUnit [filename=" + filename + ", text=" + text + ", title=" + title + ", author=" + author
 				+ ", keywords=" + keywords + ", publicationYear=" + publicationYear + ", mime=" + mime
-				+ ", categoryName=" + categoryName + ", languageName=" + languageName + "]";
+				+ ", categoryName=" + categoryName + ", languageName=" + languageName + ", content=" + content
+				+ ", hightlight=" + hightlight + "]";
 	}
+
 	
 }

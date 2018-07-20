@@ -19,6 +19,9 @@ public class EBookService {
 	public EBook findById(int id) {
 		return eBookRepository.findById(id);
 	}
+	public EBook findByFilename(String filename) {
+		return eBookRepository.findByFilename(filename);
+	}
 	
 	public List<EBook> findByCategory(Category category) {
 		return eBookRepository.findByCategory(category);

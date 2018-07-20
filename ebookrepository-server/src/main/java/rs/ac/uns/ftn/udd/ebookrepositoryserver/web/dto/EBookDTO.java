@@ -3,16 +3,20 @@ package rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto;
 public class EBookDTO {
 
 	private int id;
+
+	private String filename;
+	
 	private String title;
 	private String author;
 	private String keywords;
 	private int publicationYear;
-	private String filename;
 	private String mime;
 	private String categoryName;
 	private String languageName;
 	private String cataloguerName;
 	
+	private String highlight;
+	private String text;
 	
 	public int getId() {
 		return id;
@@ -92,6 +96,30 @@ public class EBookDTO {
 
 	public void setCataloguerName(String cataloguerName) {
 		this.cataloguerName = cataloguerName;
+	}
+
+	public String getHighlight() {
+		return highlight;
+	}
+
+	public void setHighlight(String highlight) {
+		this.highlight = highlight;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	@Override
+	public String toString() {
+		return "EBookDTO [id=" + id + ", filename=" + filename + ", title=" + title + ", author=" + author
+				+ ", keywords=" + keywords + ", publicationYear=" + publicationYear + ", mime=" + mime
+				+ ", categoryName=" + categoryName + ", languageName=" + languageName + ", cataloguerName="
+				+ cataloguerName + ", highlight=" + highlight + ", text=" + text + "]";
 	}
 	
 }

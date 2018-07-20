@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.converters.EBookConverter;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.AdvancedQuery;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.RequiredHighlight;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.ResultData;
@@ -21,6 +22,7 @@ import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.SearchType;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.SimpleQuery;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.search.QueryBuilder;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.search.ResultRetriever;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.EBookDTO;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -29,6 +31,10 @@ public class SearchController {
 
 		@Autowired
 		private ResultRetriever resultRetriever;
+		
+		@Autowired
+		private EBookConverter eBookConverter;
+		
 	
 		@PostMapping(value="/search/term", consumes="application/json")
 		public ResponseEntity<List<ResultData>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {		
@@ -101,13 +107,19 @@ public class SearchController {
 		}
 		
 		@PostMapping(value="/search/queryParser", consumes="application/json")
-		public ResponseEntity<List<ResultData>> search(@RequestBody SimpleQuery simpleQuery) throws Exception {
+		public ResponseEntity<List<EBookDTO>> search(@RequestBody SimpleQuery simpleQuery) throws Exception {
 			//org.elasticsearch.index.query.QueryBuilder query=QueryBuilders.queryStringQuery(simpleQuery.getValue());	
 			org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), simpleQuery.getValue());
 			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 			rh.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
 			List<ResultData> results = resultRetriever.getResultsWithHighlight(query);
-			return new ResponseEntity<List<ResultData>>(results, HttpStatus.OK);
+			
+			List<EBookDTO> ebooks = new ArrayList<>();
+			for (ResultData resultData : results) {
+				EBookDTO dto = eBookConverter.convert(resultData);
+				ebooks.add(dto);
+			}
+			return new ResponseEntity<List<EBookDTO>>(ebooks, HttpStatus.OK);
 		}
 	
 }

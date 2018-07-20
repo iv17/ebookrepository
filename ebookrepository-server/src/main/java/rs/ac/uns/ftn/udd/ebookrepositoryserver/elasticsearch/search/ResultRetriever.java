@@ -44,9 +44,9 @@ public class ResultRetriever {
 				.withHighlightFields(
 						new HighlightBuilder.Field("content"), 
 						new HighlightBuilder.Field("title"), 
-						new HighlightBuilder.Field("keywords"), 
 						new HighlightBuilder.Field("author"),
-						new HighlightBuilder.Field("language"))
+						new HighlightBuilder.Field("keywords"), 
+						new HighlightBuilder.Field("languageName"))
 				.build();
 		
 		Page<IndexUnit> booksEntities = elasticsearchTemplate.queryForPage(sq, IndexUnit.class, new SearchResultMapper() {
@@ -61,10 +61,17 @@ public class ResultRetriever {
 					}
 
 					IndexUnit resultData = new IndexUnit();
+					resultData.setFilename((String) searchHit.getSource().get("filename"));
 					resultData.setTitle((String) searchHit.getSource().get("title"));
-					resultData.setKeywords((String) searchHit.getSource().get("keywords"));
 					resultData.setAuthor((String) searchHit.getSource().get("author"));
-				
+					resultData.setKeywords((String) searchHit.getSource().get("keywords"));
+					resultData.setPublicationYear((Integer) searchHit.getSource().get("publicationYear"));
+					resultData.setMime((String) searchHit.getSource().get("mime"));
+					resultData.setLanguageName((String) searchHit.getSource().get("languageName"));
+					resultData.setCategoryName((String) searchHit.getSource().get("categoryName"));
+					resultData.setText((String) searchHit.getSource().get("text"));
+					
+					
 					if(searchHit.getHighlightFields() != null){
 						StringBuilder highlights = new StringBuilder("...");
 						
@@ -114,10 +121,16 @@ public class ResultRetriever {
 			
 			for (IndexUnit index : booksEntities) {
 				ResultData resultData = new ResultData();
-				resultData.setAuthor(index.getAuthor());
+				resultData.setFilename(index.getFilename());
 				resultData.setTitle(index.getTitle());
+				resultData.setAuthor(index.getAuthor());
 				resultData.setKeywords(index.getKeywords());
+				resultData.setMime("PDF");
+				resultData.setPublicationYear(index.getPublicationYear());
+				resultData.setLanguageName(index.getLanguageName());
+				resultData.setCategoryName(index.getCategoryName());
 				resultData.setHighlight(index.getHightlight());
+				resultData.setText(index.getText());
 				response.add(resultData);
 			}
 		}

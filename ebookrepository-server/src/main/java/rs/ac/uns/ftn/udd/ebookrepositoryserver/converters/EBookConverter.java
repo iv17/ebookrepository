@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.ResultData;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.EBook;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.CategoryService;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.EBookService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.LanguageService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.UserService;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto.EBookDTO;
@@ -21,6 +23,9 @@ public class EBookConverter {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private EBookService eBookService;
 	
 	public EBook convert(EBookDTO dto) {
 		EBook eBook = new EBook();
@@ -43,9 +48,9 @@ public class EBookConverter {
 		EBookDTO dto = new EBookDTO();
 		
 		dto.setId(eBook.getId());
+		dto.setFilename(eBook.getFilename());
 		dto.setTitle(eBook.getTitle());
 		dto.setAuthor(eBook.getAuthor());
-		dto.setFilename(eBook.getFilename());
 		dto.setPublicationYear(eBook.getPublicationYear());
 		dto.setKeywords(eBook.getKeywords());
 		dto.setMime(eBook.getMime());
@@ -68,6 +73,15 @@ public class EBookConverter {
 		index.setCategoryName(dto.getCategoryName());
 		
 		return index;
+	}
+	
+	public EBookDTO convert(ResultData resultData) {
+		EBook eBook = eBookService.findByFilename(resultData.getFilename());
+		EBookDTO dto = convert(eBook);
+		dto.setHighlight(resultData.getHighlight());
+		dto.setText(resultData.getText());
+		
+		return dto;
 	}
 	
 }

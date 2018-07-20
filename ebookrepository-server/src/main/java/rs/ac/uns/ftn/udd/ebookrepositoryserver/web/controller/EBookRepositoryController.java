@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.converters.CategoryConverter;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.converters.EBookConverter;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.Indexer;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.Category;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.EBook;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.User;
@@ -50,6 +52,9 @@ public class EBookRepositoryController {
 
 	@Autowired
 	EBookConverter eBookConverter;
+	
+	@Autowired
+	Indexer indexer;
 
 	@RequestMapping(
 			value = "/{id}",
@@ -62,6 +67,16 @@ public class EBookRepositoryController {
 
 		EBookDTO response = eBookConverter.convert(eBook);
 
+		IndexUnit indexUnit = new IndexUnit();
+		for (IndexUnit i : indexer.findAll()) {
+			if(i.getFilename().equals(response.getFilename())) {
+				indexUnit = i;
+			}
+		}
+		
+		response.setHighlight(indexUnit.getHightlight());
+		response.setText(indexUnit.getContent());
+		
 		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
 	}
 
