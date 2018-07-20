@@ -92,6 +92,7 @@ public class IndexerController {
 		indexUnit.setMime(request.getMime());
 		indexUnit.setCategoryName(request.getCategoryName());
 		indexUnit.setLanguageName(request.getLanguageName());
+		indexUnit.setHightlight("");
 		String text = pdfHandler.getText(new File(request.getFilename()));
 		indexUnit.setContent(text);
 		indexer.update(indexUnit);
