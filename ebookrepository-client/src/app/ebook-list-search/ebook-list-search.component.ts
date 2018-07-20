@@ -3,7 +3,6 @@ import { CategoryService } from '../service/category.service';
 import { LanguageService } from '../service/language.service';
 import { EbookrepositoryService } from '../service/ebookrepository.service';
 import { SimpleQuery } from '../model/simpleQuery';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AdvancedQuery } from '../model/advancedQuery';
 
 @Component({

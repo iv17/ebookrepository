@@ -3,7 +3,6 @@ import { LanguageService } from '../service/language.service';
 import { CategoryService } from '../service/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EbookrepositoryService } from '../service/ebookrepository.service';
-import { IndexUnit } from '../model/indexUnit';
 
 @Component({
   selector: 'app-ebook-create',
@@ -16,7 +15,7 @@ export class EbookCreateComponent implements OnInit {
   public categories = [];
 
   public categoryId;
-  public book = { title: "", author: "", keywords: "", filename: "", publicationYear: "", languageName: "", categoryName: "" };
+  public book = { title: "", author: "", keywords: "", filename: "", publicationYear: "", mime: "", languageName: "", categoryName: "", highlight: "", text: "" };
 
   constructor(private router: Router,
     private route: ActivatedRoute,

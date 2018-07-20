@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../service/category.service';
-import { LanguageService } from '../service/language.service';
 import { EbookrepositoryService } from '../service/ebookrepository.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { saveAs } from "file-saver";
+
 @Component({
   selector: 'app-ebook',
   templateUrl: './ebook.component.html',

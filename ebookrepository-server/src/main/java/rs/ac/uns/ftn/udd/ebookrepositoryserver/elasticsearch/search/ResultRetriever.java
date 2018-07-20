@@ -121,7 +121,6 @@ public class ResultRetriever {
 				response.add(resultData);
 			}
 		}
-		
 
 		return response;	
 	}
@@ -135,9 +134,8 @@ public class ResultRetriever {
 		List<ResultData> results = new ArrayList<ResultData>();
 
 		for (IndexUnit indexUnit : repository.search(query)) {
-			results.add(new ResultData(indexUnit.getTitle(), indexUnit.getKeywords(), "", indexUnit.getAuthor(), indexUnit.getLanguageName(), indexUnit.getCategoryName(), indexUnit.getPublicationYear(), indexUnit.getFilename()));
+			results.add(new ResultData(indexUnit.getFilename(), indexUnit.getTitle(), indexUnit.getAuthor(), indexUnit.getKeywords(), indexUnit.getPublicationYear(), indexUnit.getMime(), indexUnit.getLanguageName(), indexUnit.getCategoryName(), indexUnit.getHightlight(), indexUnit.getText()));
 		}
-
 
 		return results;
 	}

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Ebook } from '../model/ebook';
-import { IndexUnit } from '../model/indexUnit';
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +30,11 @@ export class EbookrepositoryService {
     this.http.post(`${this.indexerUrl}`, book, options);
     return this.http.post<Ebook>(`${this.baseUrl}`, book, options);
   }
-  createIndex(book): Observable<IndexUnit> {
+  createIndex(book): Observable<Ebook> {
     const options = {
       headers: new HttpHeaders()
     };
-    return  this.http.post<IndexUnit>(`${this.indexerUrl}`, book, options);
+    return  this.http.post<Ebook>(`${this.indexerUrl}`, book, options);
   }
 
   update(id: number, book): Observable<Ebook> {
@@ -45,14 +44,14 @@ export class EbookrepositoryService {
     return this.http.put<Ebook>(`${this.baseUrl}/${id}`, book, options);
   }
 
-  upload(book: any): Observable<IndexUnit> {
+  upload(book: any): Observable<Ebook> {
     const options = {
       headers: new HttpHeaders()
     };
     let formData: FormData = new FormData();
     formData.append('file', book);
 
-    return this.http.post<IndexUnit>(`${this.indexerUrl}/upload`, formData, options);
+    return this.http.post<Ebook>(`${this.indexerUrl}/upload`, formData, options);
   }
   download(id: number) {
     return this.http.get(`${this.baseUrl}/download/${id}`, { responseType: 'blob' });
