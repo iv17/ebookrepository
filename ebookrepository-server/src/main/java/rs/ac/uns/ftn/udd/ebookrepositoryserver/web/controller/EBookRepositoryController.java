@@ -93,7 +93,17 @@ public class EBookRepositoryController {
 
 		List<EBookDTO> response = new ArrayList<>();
 		for (EBook eBook : ebooks) {
-			response.add(eBookConverter.convert(eBook));
+			EBookDTO dto = eBookConverter.convert(eBook);
+			IndexUnit indexUnit = new IndexUnit();
+			for (IndexUnit i : indexer.findAll()) {
+				if(i.getFilename().equals(eBook.getFilename())) {
+					indexUnit = i;
+				}
+			}
+			
+			dto.setHighlight(indexUnit.getHightlight());
+			dto.setText(indexUnit.getContent());
+			response.add(dto);
 		}
 		return new ResponseEntity<List<EBookDTO>>(response, HttpStatus.OK);
 	}
@@ -108,7 +118,17 @@ public class EBookRepositoryController {
 
 		List<EBookDTO> response = new ArrayList<>();
 		for (EBook eBook : eBooks) {
-			response.add(eBookConverter.convert(eBook));
+			EBookDTO dto = eBookConverter.convert(eBook);
+			IndexUnit indexUnit = new IndexUnit();
+			for (IndexUnit i : indexer.findAll()) {
+				if(i.getFilename().equals(eBook.getFilename())) {
+					indexUnit = i;
+				}
+			}
+			
+			dto.setHighlight(indexUnit.getHightlight());
+			dto.setText(indexUnit.getContent());
+			response.add(dto);
 		}
 
 		return new ResponseEntity<List<EBookDTO>>(response, HttpStatus.OK);
