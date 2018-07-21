@@ -196,6 +196,18 @@ public class EBookRepositoryController {
 	}
 	
 	@RequestMapping(
+			value = "/{id}",
+			method = RequestMethod.DELETE,
+			produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	public ResponseEntity<Void> delete(@PathVariable int id, Authentication authentication) {
+
+		eBookService.delete(id);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(
 			value="download/{id}",
 			method=RequestMethod.GET)
 	public ResponseEntity<?> download(@PathVariable int id) throws IOException{

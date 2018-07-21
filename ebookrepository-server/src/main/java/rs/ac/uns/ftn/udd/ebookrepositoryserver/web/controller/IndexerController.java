@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.Indexer;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.handlers.PDFHandler;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.EBook;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.EBookService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -40,6 +43,9 @@ public class IndexerController {
 		dataDirPath=rb.getString("dataDir");
 	}
 
+	@Autowired
+	private EBookService eBookService;
+	
 	@Autowired
 	private Indexer indexer;
 
@@ -100,6 +106,20 @@ public class IndexerController {
 		
 		return new ResponseEntity<IndexUnit>(indexUnit, HttpStatus.OK);
 	
+	}
+	
+	@RequestMapping(
+			value = "/{id}",
+			method = RequestMethod.DELETE
+			)
+	public ResponseEntity<Void> delete(@PathVariable int id, Authentication authentication) {
+
+		EBook ebook = eBookService.findById(id);
+		indexer.delete(ebook.getFilename());
+
+		eBookService.delete(id);
+		System.out.println("OBRISAN INDEX");
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	private File getResourceFilePath(String path) {

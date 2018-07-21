@@ -36,6 +36,12 @@ export class EbookrepositoryService {
     };
     return this.http.put<Ebook>(`${this.baseUrl}/${id}`, book, options);
   }
+  delete(id: number): Observable<any> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return this.http.delete<any>(`${this.baseUrl}/${id}`, options);
+  }
   createIndex(book): Observable<Ebook> {
     const options = {
       headers: new HttpHeaders()
@@ -50,6 +56,12 @@ export class EbookrepositoryService {
     formData.append('file', book);
 
     return this.http.post<Ebook>(`${this.indexerUrl}/upload`, formData, options);
+  }
+  deleteIndex(filename) {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return this.http.delete(`${this.indexerUrl}/${filename}`, options);
   }
   download(id: number) {
     return this.http.get(`${this.baseUrl}/download/${id}`, { responseType: 'blob' });

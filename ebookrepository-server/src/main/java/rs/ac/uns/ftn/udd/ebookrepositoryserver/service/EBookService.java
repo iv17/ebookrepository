@@ -35,6 +35,10 @@ public class EBookService {
 		return eBookRepository.save(eBook);
 	}
 	
+	public void delete(int id) {
+		eBookRepository.delete(id);
+	}
+	
 	public File download(int id) {
 		
 		EBook eBook = eBookRepository.findById(id);

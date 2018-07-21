@@ -55,7 +55,7 @@
             </div>
             <button (click)="download()" class="btn btn-md btn-primary btn-block" type="submit">Download</button>
             <button class="btn btn-md btn-success btn-block" type="submit" [routerLink]="['edit']" routerLinkActive="active">Edit</button>
-            <button class="btn btn-md btn-danger btn-block" type="submit">Delete</button>
+            <button (click)="delete()" class="btn btn-md btn-danger btn-block" type="submit">Delete</button>
           </div>
         </div>
       </div>

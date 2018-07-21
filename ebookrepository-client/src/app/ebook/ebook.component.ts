@@ -31,7 +31,16 @@ export class EbookComponent implements OnInit {
         }
       );
   }
-
+  delete() {
+   
+    this.eBookRepositoryService.deleteIndex(this.eBookId)
+      .subscribe(
+        data => {
+          console.log("Obrisan!");
+          this.router.navigateByUrl('/home/ebooks');
+        }
+      );
+  }
   download() {
     this.eBookRepositoryService.download(this.eBookId)
       .subscribe(
