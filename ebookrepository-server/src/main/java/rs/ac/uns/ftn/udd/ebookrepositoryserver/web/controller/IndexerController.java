@@ -96,6 +96,7 @@ public class IndexerController {
 		String text = pdfHandler.getText(new File(request.getFilename()));
 		indexUnit.setContent(text);
 		indexUnit.setText(text);
+		
 		indexer.update(indexUnit);
 		
 		System.out.println("Successfully indexed!");

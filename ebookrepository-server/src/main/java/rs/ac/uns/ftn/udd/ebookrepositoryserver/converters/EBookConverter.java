@@ -3,7 +3,6 @@ package rs.ac.uns.ftn.udd.ebookrepositoryserver.converters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.ResultData;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.model.EBook;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.service.CategoryService;
@@ -59,20 +58,6 @@ public class EBookConverter {
 		dto.setCataloguerName(eBook.getCataloguer().getEmail());
 		
 		return dto;
-	}
-	
-	public IndexUnit convert2I(EBookDTO dto) {
-		IndexUnit index = new IndexUnit();
-		
-		index.setTitle(dto.getTitle());
-		index.setAuthor(dto.getAuthor());
-		index.setFilename(dto.getFilename());
-		index.setKeywords(dto.getKeywords());
-		index.setPublicationYear(dto.getPublicationYear());
-		index.setLanguageName(dto.getLanguageName());
-		index.setCategoryName(dto.getCategoryName());
-		
-		return index;
 	}
 	
 	public EBookDTO convert(ResultData resultData) {

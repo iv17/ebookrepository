@@ -64,7 +64,6 @@ public class EBookRepositoryController {
 	public ResponseEntity<EBookDTO> getById(@PathVariable int id, Authentication authentication) {
 
 		EBook eBook = eBookService.findById(id);
-
 		EBookDTO response = eBookConverter.convert(eBook);
 
 		IndexUnit indexUnit = new IndexUnit();
@@ -75,7 +74,7 @@ public class EBookRepositoryController {
 		}
 		
 		response.setHighlight(indexUnit.getHightlight());
-		response.setText(indexUnit.getContent());
+		response.setText(indexUnit.getText());
 		
 		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
 	}
@@ -93,6 +92,7 @@ public class EBookRepositoryController {
 
 		List<EBookDTO> response = new ArrayList<>();
 		for (EBook eBook : ebooks) {
+			
 			EBookDTO dto = eBookConverter.convert(eBook);
 			IndexUnit indexUnit = new IndexUnit();
 			for (IndexUnit i : indexer.findAll()) {
@@ -103,6 +103,7 @@ public class EBookRepositoryController {
 			
 			dto.setHighlight(indexUnit.getHightlight());
 			dto.setText(indexUnit.getContent());
+			
 			response.add(dto);
 		}
 		return new ResponseEntity<List<EBookDTO>>(response, HttpStatus.OK);
@@ -150,7 +151,17 @@ public class EBookRepositoryController {
 		eBookService.save(eBook);
 
 		EBookDTO response = eBookConverter.convert(eBook);
-
+		
+		IndexUnit indexUnit = new IndexUnit();
+		for (IndexUnit i : indexer.findAll()) {
+			if(i.getFilename().equals(response.getFilename())) {
+				indexUnit = i;
+			}
+		}
+		
+		response.setHighlight(indexUnit.getHightlight());
+		response.setText(indexUnit.getText());
+		
 		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
 
 	}
@@ -173,7 +184,6 @@ public class EBookRepositoryController {
 			headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 
 			return new ResponseEntity<byte[]>(content,headers,HttpStatus.OK);
-
 
 		}
 
