@@ -30,20 +30,18 @@ export class EbookrepositoryService {
     this.http.post(`${this.indexerUrl}`, book, options);
     return this.http.post<Ebook>(`${this.baseUrl}`, book, options);
   }
-  createIndex(book): Observable<Ebook> {
-    const options = {
-      headers: new HttpHeaders()
-    };
-    return  this.http.post<Ebook>(`${this.indexerUrl}`, book, options);
-  }
-
   update(id: number, book): Observable<Ebook> {
     const options = {
       headers: new HttpHeaders()
     };
     return this.http.put<Ebook>(`${this.baseUrl}/${id}`, book, options);
   }
-
+  createIndex(book): Observable<Ebook> {
+    const options = {
+      headers: new HttpHeaders()
+    };
+    return  this.http.post<Ebook>(`${this.indexerUrl}`, book, options);
+  }
   upload(book: any): Observable<Ebook> {
     const options = {
       headers: new HttpHeaders()

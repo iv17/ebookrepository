@@ -167,6 +167,34 @@ public class EBookRepositoryController {
 	}
 	
 	@RequestMapping(
+			value = "/{id}",
+			method = RequestMethod.PUT,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	public ResponseEntity<EBookDTO> update(@PathVariable int id, @RequestBody EBookDTO request, Authentication authentication) {
+
+		
+		EBook eBook = eBookConverter.convert(request);
+		eBookService.save(eBook);
+
+		EBookDTO response = eBookConverter.convert(eBook);
+		
+		IndexUnit indexUnit = new IndexUnit();
+		for (IndexUnit i : indexer.findAll()) {
+			if(i.getFilename().equals(response.getFilename())) {
+				indexUnit = i;
+			}
+		}
+		
+		response.setHighlight(indexUnit.getHightlight());
+		response.setText(indexUnit.getText());
+		
+		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
+
+	}
+	
+	@RequestMapping(
 			value="download/{id}",
 			method=RequestMethod.GET)
 	public ResponseEntity<?> download(@PathVariable int id) throws IOException{

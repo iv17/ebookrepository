@@ -54,7 +54,7 @@
               <textarea rows="14" class="form-control"readonly>{{ eBook.text }}</textarea>
             </div>
             <button (click)="download()" class="btn btn-md btn-primary btn-block" type="submit">Download</button>
-            <button class="btn btn-md btn-success btn-block" type="submit">Edit</button>
+            <button class="btn btn-md btn-success btn-block" type="submit" [routerLink]="['edit']" routerLinkActive="active">Edit</button>
             <button class="btn btn-md btn-danger btn-block" type="submit">Delete</button>
           </div>
         </div>
