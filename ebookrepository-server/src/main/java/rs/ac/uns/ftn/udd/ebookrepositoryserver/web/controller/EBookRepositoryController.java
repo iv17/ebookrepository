@@ -174,11 +174,12 @@ public class EBookRepositoryController {
 			)
 	public ResponseEntity<EBookDTO> update(@PathVariable int id, @RequestBody EBookDTO request, Authentication authentication) {
 
-		
-		EBook eBook = eBookConverter.convert(request);
-		eBookService.save(eBook);
+	
+		EBook eBook = eBookService.findById(id); 
+		EBook eBook2 = 	eBookConverter.update(eBook, request);
+		eBookService.save(eBook2);
 
-		EBookDTO response = eBookConverter.convert(eBook);
+		EBookDTO response = eBookConverter.convert(eBook2);
 		
 		IndexUnit indexUnit = new IndexUnit();
 		for (IndexUnit i : indexer.findAll()) {

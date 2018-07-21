@@ -33,19 +33,19 @@ import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
 @RequestMapping("/api/indexer")
 public class IndexerController {
 
-	private static String DATA_DIR_PATH;
+	private static String dataDirPath;
 	private PDFHandler pdfHandler = new PDFHandler();
 	static {
 		ResourceBundle rb=ResourceBundle.getBundle("application");
-		DATA_DIR_PATH=rb.getString("dataDir");
+		dataDirPath=rb.getString("dataDir");
 	}
 
 	@Autowired
 	private Indexer indexer;
 
 	@GetMapping("/reindex")
-	public ResponseEntity<String> index() throws IOException {
-		File dataDir = getResourceFilePath(DATA_DIR_PATH);
+	public ResponseEntity<String> index()  {
+		File dataDir = getResourceFilePath(dataDirPath);
 		long start = new Date().getTime();
 		int numIndexed = indexer.index(dataDir);
 		long end = new Date().getTime();
@@ -119,7 +119,7 @@ public class IndexerController {
 			byte[] bytes;
 			try {
 				bytes = file.getBytes();
-				Path path = Paths.get(getResourceFilePath(DATA_DIR_PATH).getAbsolutePath() + File.separator + file.getOriginalFilename());
+				Path path = Paths.get(getResourceFilePath(dataDirPath).getAbsolutePath() + File.separator + file.getOriginalFilename());
 				Files.write(path, bytes);
 				retVal = path.toString();
 			} catch (IOException e) {

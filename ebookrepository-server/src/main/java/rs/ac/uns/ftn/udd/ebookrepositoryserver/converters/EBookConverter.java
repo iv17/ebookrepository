@@ -43,6 +43,20 @@ public class EBookConverter {
 		return eBook;
 	}
 	
+	public EBook update(EBook eBook , EBookDTO dto) {
+
+		eBook.setTitle(dto.getTitle());
+		eBook.setAuthor(dto.getAuthor());
+		eBook.setPublicationYear(dto.getPublicationYear());
+		eBook.setKeywords(dto.getKeywords());
+		eBook.setMime(dto.getMime());
+		eBook.setCategory(categoryService.findByName(dto.getCategoryName()));
+		eBook.setLanguage(languageService.findByName(dto.getLanguageName()));
+		eBook.setCataloguer(userService.findByEmail(dto.getCataloguerName()));
+		
+		return eBook;
+	}
+	
 	public EBookDTO convert(EBook eBook) {
 		EBookDTO dto = new EBookDTO();
 		
