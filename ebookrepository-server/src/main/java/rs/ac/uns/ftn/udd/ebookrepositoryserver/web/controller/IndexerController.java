@@ -94,12 +94,10 @@ public class IndexerController {
 		indexUnit.setLanguageName(request.getLanguageName());
 		indexUnit.setHightlight("");
 		String text = pdfHandler.getText(new File(request.getFilename()));
-		indexUnit.setContent(text);
 		indexUnit.setText(text);
 		
 		indexer.update(indexUnit);
 		
-		System.out.println("Successfully indexed!");
 		return new ResponseEntity<IndexUnit>(indexUnit, HttpStatus.OK);
 	
 	}

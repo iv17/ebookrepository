@@ -3,7 +3,6 @@ package rs.ac.uns.ftn.udd.ebookrepositoryserver.web.dto;
 public class EBookDTO {
 
 	private int id;
-
 	private String filename;
 	
 	private String title;

@@ -42,7 +42,7 @@ public class ResultRetriever {
 		SearchQuery sq = new NativeSearchQueryBuilder()
 				.withQuery(query)
 				.withHighlightFields(
-						new HighlightBuilder.Field("content"), 
+						new HighlightBuilder.Field("text"), 
 						new HighlightBuilder.Field("title"), 
 						new HighlightBuilder.Field("author"),
 						new HighlightBuilder.Field("keywords"), 
@@ -75,8 +75,8 @@ public class ResultRetriever {
 					if(searchHit.getHighlightFields() != null){
 						StringBuilder highlights = new StringBuilder("...");
 						
-						if(searchHit.getHighlightFields().get("content") != null){
-							Text [] text = searchHit.getHighlightFields().get("content").fragments();
+						if(searchHit.getHighlightFields().get("text") != null){
+							Text [] text = searchHit.getHighlightFields().get("text").fragments();
 							for (Text t : text) {
 								highlights.append(t.toString());
 								highlights.append("...");

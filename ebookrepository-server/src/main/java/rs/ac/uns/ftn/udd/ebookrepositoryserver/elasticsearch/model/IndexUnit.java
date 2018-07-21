@@ -18,102 +18,119 @@ public class IndexUnit {
 	private String filename;
 	
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-	private String text;
-	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
 	private String title;
-	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-	private String author;
-	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-	private String keywords;
-	@Field(type = FieldType.Integer, index = FieldIndex.analyzed, store = true)
-	private Integer publicationYear;
-	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-	private String mime;
-	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-	private String categoryName;
-	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-	private String languageName;
 	
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
-	private String content;
+	private String author;
+	
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String keywords;
+	
+	@Field(type = FieldType.Integer, index = FieldIndex.analyzed, store = true)
+	private Integer publicationYear;
+	
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String mime;
+	
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String categoryName;
+	
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String languageName;
+
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String text;
 	
 	@Field(type = FieldType.String, index = FieldIndex.not_analyzed, store = true)
 	private String hightlight;
-	
+
 	public String getFilename() {
 		return filename;
 	}
+
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public String getText() {
-		return text;
-	}
-	public void setText(String text) {
-		this.text = text;
-	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getAuthor() {
 		return author;
 	}
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+
 	public String getKeywords() {
 		return keywords;
 	}
+
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
 	}
+
 	public Integer getPublicationYear() {
 		return publicationYear;
 	}
+
 	public void setPublicationYear(Integer publicationYear) {
 		this.publicationYear = publicationYear;
 	}
+
 	public String getMime() {
 		return mime;
 	}
+
 	public void setMime(String mime) {
 		this.mime = mime;
 	}
+
 	public String getCategoryName() {
 		return categoryName;
 	}
+
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+
 	public String getLanguageName() {
 		return languageName;
 	}
+
 	public void setLanguageName(String languageName) {
 		this.languageName = languageName;
 	}
-	
-	public String getContent() {
-		return content;
+
+	public String getText() {
+		return text;
 	}
-	public void setContent(String content) {
-		this.content = content;
+
+	public void setText(String text) {
+		this.text = text;
 	}
+
 	public String getHightlight() {
 		return hightlight;
 	}
+
 	public void setHightlight(String hightlight) {
 		this.hightlight = hightlight;
 	}
+
 	@Override
 	public String toString() {
-		return "IndexUnit [filename=" + filename + ", text=" + text + ", title=" + title + ", author=" + author
-				+ ", keywords=" + keywords + ", publicationYear=" + publicationYear + ", mime=" + mime
-				+ ", categoryName=" + categoryName + ", languageName=" + languageName + ", content=" + content
-				+ ", hightlight=" + hightlight + "]";
+		return "IndexUnit [filename=" + filename + ", title=" + title + ", author=" + author + ", keywords=" + keywords
+				+ ", publicationYear=" + publicationYear + ", mime=" + mime + ", categoryName=" + categoryName
+				+ ", languageName=" + languageName + ", text=" + text + ", hightlight=" + hightlight + "]";
 	}
+	
 
 	
 }

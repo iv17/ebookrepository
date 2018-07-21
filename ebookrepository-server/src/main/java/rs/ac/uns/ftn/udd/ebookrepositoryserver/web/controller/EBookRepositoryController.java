@@ -102,7 +102,7 @@ public class EBookRepositoryController {
 			}
 			
 			dto.setHighlight(indexUnit.getHightlight());
-			dto.setText(indexUnit.getContent());
+			dto.setText(indexUnit.getText());
 			
 			response.add(dto);
 		}
@@ -128,7 +128,7 @@ public class EBookRepositoryController {
 			}
 			
 			dto.setHighlight(indexUnit.getHightlight());
-			dto.setText(indexUnit.getContent());
+			dto.setText(indexUnit.getText());
 			response.add(dto);
 		}
 
