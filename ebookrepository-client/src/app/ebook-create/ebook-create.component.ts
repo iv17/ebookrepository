@@ -15,7 +15,7 @@ export class EbookCreateComponent implements OnInit {
   public categories = [];
 
   public categoryId;
-  public book = { title: "", author: "", keywords: "", filename: "", publicationYear: "", mime: "", languageName: "", categoryName: "", highlight: "", text: "" };
+  public book = { title: "", author: "", keywords: "", filename: "", publicationYear: "", mime: "", languageName: "", categoryName: "", highlight: "", originalText: "", text: "" };
 
   constructor(private router: Router,
     private route: ActivatedRoute,

@@ -130,6 +130,7 @@ public class ResultRetriever {
 				resultData.setLanguageName(index.getLanguageName());
 				resultData.setCategoryName(index.getCategoryName());
 				resultData.setHighlight(index.getHightlight());
+				resultData.setOriginalText(index.getOriginalText());
 				resultData.setText(index.getText());
 				response.add(resultData);
 			}
@@ -147,7 +148,7 @@ public class ResultRetriever {
 		List<ResultData> results = new ArrayList<ResultData>();
 
 		for (IndexUnit indexUnit : repository.search(query)) {
-			results.add(new ResultData(indexUnit.getFilename(), indexUnit.getTitle(), indexUnit.getAuthor(), indexUnit.getKeywords(), indexUnit.getPublicationYear(), indexUnit.getMime(), indexUnit.getLanguageName(), indexUnit.getCategoryName(), indexUnit.getHightlight(), indexUnit.getText()));
+			results.add(new ResultData(indexUnit.getFilename(), indexUnit.getTitle(), indexUnit.getAuthor(), indexUnit.getKeywords(), indexUnit.getPublicationYear(), indexUnit.getMime(), indexUnit.getLanguageName(), indexUnit.getCategoryName(), indexUnit.getHightlight(), indexUnit.getOriginalText(), indexUnit.getText()));
 		}
 
 		return results;

@@ -99,6 +99,7 @@ public class IndexerController {
 		indexUnit.setCategoryName(request.getCategoryName());
 		indexUnit.setLanguageName(request.getLanguageName());
 		indexUnit.setHightlight("");
+		indexUnit.setOriginalText(pdfHandler.getOriginalText(new File(request.getFilename())));
 		String text = pdfHandler.getText(new File(request.getFilename()));
 		indexUnit.setText(text);
 		
@@ -118,7 +119,6 @@ public class IndexerController {
 		indexer.delete(ebook.getFilename());
 
 		eBookService.delete(id);
-		System.out.println("OBRISAN INDEX");
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

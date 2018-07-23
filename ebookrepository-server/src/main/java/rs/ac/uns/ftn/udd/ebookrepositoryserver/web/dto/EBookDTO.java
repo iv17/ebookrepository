@@ -15,6 +15,7 @@ public class EBookDTO {
 	private String cataloguerName;
 	
 	private String highlight;
+	private String originalText;
 	private String text;
 	
 	public int getId() {
@@ -103,6 +104,14 @@ public class EBookDTO {
 
 	public void setHighlight(String highlight) {
 		this.highlight = highlight;
+	}
+
+	public String getOriginalText() {
+		return originalText;
+	}
+
+	public void setOriginalText(String originalText) {
+		this.originalText = originalText;
 	}
 
 	public String getText() {

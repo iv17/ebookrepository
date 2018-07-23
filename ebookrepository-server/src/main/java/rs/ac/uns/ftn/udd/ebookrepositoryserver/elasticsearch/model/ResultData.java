@@ -11,6 +11,7 @@ public final class ResultData {
 	private String languageName;
 	private String categoryName;
 	private String highlight;
+	private String originalText;
 	private String text;
 	
 	public ResultData() {
@@ -18,7 +19,7 @@ public final class ResultData {
 	}
 
 	public ResultData(String filename, String title, String author, String keywords, int publicationYear, String mime,
-			String languageName, String categoryName, String highlight, String text) {
+			String languageName, String categoryName, String highlight, String originalText, String text) {
 		super();
 		this.filename = filename;
 		this.title = title;
@@ -29,6 +30,7 @@ public final class ResultData {
 		this.languageName = languageName;
 		this.categoryName = categoryName;
 		this.highlight = highlight;
+		this.originalText = originalText;
 		this.text = text;
 	}
 
@@ -102,6 +104,14 @@ public final class ResultData {
 
 	public void setHighlight(String highlight) {
 		this.highlight = highlight;
+	}
+
+	public String getOriginalText() {
+		return originalText;
+	}
+
+	public void setOriginalText(String originalText) {
+		this.originalText = originalText;
 	}
 
 	public String getText() {

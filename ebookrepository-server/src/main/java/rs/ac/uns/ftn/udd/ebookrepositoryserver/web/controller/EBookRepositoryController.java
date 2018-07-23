@@ -74,6 +74,7 @@ public class EBookRepositoryController {
 		}
 		
 		response.setHighlight(indexUnit.getHightlight());
+		response.setOriginalText(indexUnit.getOriginalText());
 		response.setText(indexUnit.getText());
 		
 		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
@@ -102,6 +103,7 @@ public class EBookRepositoryController {
 			}
 			
 			dto.setHighlight(indexUnit.getHightlight());
+			dto.setOriginalText(indexUnit.getOriginalText());
 			dto.setText(indexUnit.getText());
 			
 			response.add(dto);
@@ -128,6 +130,7 @@ public class EBookRepositoryController {
 			}
 			
 			dto.setHighlight(indexUnit.getHightlight());
+			dto.setOriginalText(indexUnit.getOriginalText());
 			dto.setText(indexUnit.getText());
 			response.add(dto);
 		}
@@ -160,6 +163,7 @@ public class EBookRepositoryController {
 		}
 		
 		response.setHighlight(indexUnit.getHightlight());
+		response.setOriginalText(indexUnit.getOriginalText());
 		response.setText(indexUnit.getText());
 		
 		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
@@ -189,22 +193,11 @@ public class EBookRepositoryController {
 		}
 		
 		response.setHighlight(indexUnit.getHightlight());
+		response.setOriginalText(indexUnit.getOriginalText());
 		response.setText(indexUnit.getText());
 		
 		return new ResponseEntity<EBookDTO>(response, HttpStatus.OK);
 
-	}
-	
-	@RequestMapping(
-			value = "/{id}",
-			method = RequestMethod.DELETE,
-			produces = MediaType.APPLICATION_JSON_VALUE
-			)
-	public ResponseEntity<Void> delete(@PathVariable int id, Authentication authentication) {
-
-		eBookService.delete(id);
-		
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(

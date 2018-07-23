@@ -38,6 +38,9 @@ public class IndexUnit {
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
 	private String languageName;
 
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed, store = false)
+	private String originalText;
+	
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
 	private String text;
 	
@@ -106,6 +109,14 @@ public class IndexUnit {
 
 	public void setLanguageName(String languageName) {
 		this.languageName = languageName;
+	}
+
+	public String getOriginalText() {
+		return originalText;
+	}
+
+	public void setOriginalText(String originalText) {
+		this.originalText = originalText;
 	}
 
 	public String getText() {

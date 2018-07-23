@@ -12,6 +12,7 @@ export class Ebook {
     languageName: String;
     cataloguerName: String;
     highlight: String;
+    originalText: String;
     text: String;
 
     constructor(inter: EBookInterface = {}) {
@@ -41,5 +42,6 @@ interface EBookInterface {
     languageName?: String;
     cataloguerName?: String;
     highlight?: String;
+    originalText?: String;
     text?: String;
 }

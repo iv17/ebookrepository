@@ -78,6 +78,7 @@ public class EBookConverter {
 		EBook eBook = eBookService.findByFilename(resultData.getFilename());
 		EBookDTO dto = convert(eBook);
 		dto.setHighlight(resultData.getHighlight());
+		dto.setOriginalText(resultData.getOriginalText());
 		dto.setText(resultData.getText());
 		
 		return dto;

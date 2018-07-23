@@ -1,6 +1,8 @@
 package rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.analysers;
 
 import java.io.Reader;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
@@ -10,6 +12,7 @@ import org.apache.lucene.analysis.core.StopFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.filters.CyrilicToLatinFilter;
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.filters.CyrillicLatinConverter;
 
 public class SerbianAnalyzer extends Analyzer {
 
@@ -44,7 +47,12 @@ public class SerbianAnalyzer extends Analyzer {
     {
     }
 
-
+    public static String analize(String text) {
+    	String newText = text.toLowerCase();
+    	newText = Normalizer.normalize(CyrillicLatinConverter.cir2lat(newText), Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+		return newText;
+    }
+    
 	@Override
 	protected TokenStreamComponents createComponents(String arg0) {
 		Tokenizer source = new StandardTokenizer();

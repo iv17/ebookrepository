@@ -11,16 +11,20 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.text.PDFTextStripper;
 
+import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.indexing.analysers.SerbianAnalyzer;
 import rs.ac.uns.ftn.udd.ebookrepositoryserver.elasticsearch.model.IndexUnit;
 
 public class PDFHandler extends DocumentHandler {
-
+	
 	@Override
 	public IndexUnit getIndexUnit(File file) {
 		IndexUnit retVal = new IndexUnit();
 		try {
 			PDFParser parser = new PDFParser(new RandomAccessFile(file, "r"));
 			parser.parse();
+			String originalText = getOriginalText(parser);
+			retVal.setOriginalText(originalText);
+			
 			String text = getText(parser);
 			retVal.setText(text);
 
@@ -59,7 +63,7 @@ public class PDFHandler extends DocumentHandler {
 			parser.parse();
 			PDFTextStripper textStripper = new PDFTextStripper();
 			String text = textStripper.getText(parser.getPDDocument());
-			return text;
+			return SerbianAnalyzer.analize(text);
 		} catch (IOException e) {
 			System.out.println("Greksa pri konvertovanju dokumenta u pdf");
 		}
@@ -70,11 +74,35 @@ public class PDFHandler extends DocumentHandler {
 		try {
 			PDFTextStripper textStripper = new PDFTextStripper();
 			String text = textStripper.getText(parser.getPDDocument());
+			return SerbianAnalyzer.analize(text);
+		} catch (IOException e) {
+			System.out.println("Greksa pri konvertovanju dokumenta u pdf");
+		}
+		return null;
+	}
+	
+	public String getOriginalText(File file) {
+		try {
+			PDFParser parser = new PDFParser(new RandomAccessFile(file, "r"));
+			parser.parse();
+			PDFTextStripper textStripper = new PDFTextStripper();
+			String text = textStripper.getText(parser.getPDDocument());
 			return text;
 		} catch (IOException e) {
 			System.out.println("Greksa pri konvertovanju dokumenta u pdf");
 		}
 		return null;
 	}
-
+	
+	public String getOriginalText(PDFParser parser) {
+		try {
+			PDFTextStripper textStripper = new PDFTextStripper();
+			String text = textStripper.getText(parser.getPDDocument());
+			return text;
+		} catch (IOException e) {
+			System.out.println("Greksa pri konvertovanju dokumenta u pdf");
+		}
+		return null;
+	}
+	
 }

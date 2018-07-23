@@ -24,7 +24,7 @@ export class EbookListSearchComponent implements OnInit {
   public keywords = "";
   public languageName = "";
 
-  public content = "";
+  public text = "";
 
   public operationAND = "";
   public operationOR = "";
@@ -78,9 +78,9 @@ export class EbookListSearchComponent implements OnInit {
         }
       );
   }
-  public searchByContent() {
-    this.simpleQuery.field = "content";
-    this.simpleQuery.value = this.content;
+  public searchByText() {
+    this.simpleQuery.field = "text";
+    this.simpleQuery.value = this.text;
     this.eBookRepositoryService.searchByContent(this.simpleQuery)
       .subscribe(
         data => {
@@ -121,14 +121,14 @@ export class EbookListSearchComponent implements OnInit {
         this.advancedQuery.value2 = this.keywords;
       }
     }
-    if(this.content != null) {
+    if(this.text != null) {
       if(this.advancedQuery.field1 == "") {
-        this.advancedQuery.field1 = "content";
-        this.advancedQuery.value1 = this.content;
+        this.advancedQuery.field1 = "text";
+        this.advancedQuery.value1 = this.text;
       }
       else {
-        this.advancedQuery.field2 = "content";
-        this.advancedQuery.value2 = this.content;
+        this.advancedQuery.field2 = "text";
+        this.advancedQuery.value2 = this.text;
       }
     }
     console.log(this.advancedQuery);
