@@ -12,6 +12,7 @@ import { AdvancedQuery } from '../model/advancedQuery';
 })
 export class EbookListSearchComponent implements OnInit {
 
+ 
   public books = [];
   public languages = [];
   public categories = [];
@@ -35,7 +36,9 @@ export class EbookListSearchComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
     private languageService: LanguageService,
-    private eBookRepositoryService: EbookrepositoryService) { }
+    private eBookRepositoryService: EbookrepositoryService) { 
+      
+    }
 
 
   ngOnInit() {

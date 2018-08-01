@@ -13,6 +13,7 @@ import { CategoryService } from '../service/category.service';
 })
 export class UsersComponent implements OnInit {
 
+  public type: string = "";
   public users = [];
 
   public row = { firstName: "", lastName: "", email: "", categoryName: ""};
@@ -23,7 +24,11 @@ export class UsersComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService) { 
+      if(JSON.parse(localStorage.getItem('user')) != null){
+        this.type = JSON.parse(localStorage.getItem('user')).type;
+      }
+    }
 
   ngOnInit() {
     this.populate();

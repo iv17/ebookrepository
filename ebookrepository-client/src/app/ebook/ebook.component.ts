@@ -9,7 +9,8 @@ import { saveAs } from "file-saver";
   styleUrls: ['./ebook.component.css']
 })
 export class EbookComponent implements OnInit {
-
+  
+  public type: string = "";
   public eBookId;
   public eBook;
 
@@ -17,6 +18,9 @@ export class EbookComponent implements OnInit {
     private route: ActivatedRoute,
     private eBookRepositoryService: EbookrepositoryService) {
     this.eBookId = route.snapshot.params['eBookId'];
+    if(JSON.parse(localStorage.getItem('user')) != null){
+      this.type = JSON.parse(localStorage.getItem('user')).type;
+    }
   }
 
   ngOnInit() {

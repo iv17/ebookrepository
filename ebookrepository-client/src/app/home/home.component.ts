@@ -13,6 +13,8 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent  {
+  
+  public type: string = "";
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -22,7 +24,12 @@ export class HomeComponent  {
   constructor(private breakpointObserver: BreakpointObserver,
     private service: UserService,
     private router: Router
-  ) { }
+  ) {
+    if(JSON.parse(localStorage.getItem('user')) != null){
+      this.type = JSON.parse(localStorage.getItem('user')).type;
+      console.log(this.type);
+    }
+   }
   
   public logout() {
     this.service.logout();

@@ -28,7 +28,12 @@ import { EbookEditComponent } from './ebook-edit/ebook-edit.component';
 const routes: Routes = [
   {
     path: "",
-    component: HomeComponent
+    component: HomeComponent,
+    children: [
+      {
+        path: "",
+        component: EbookListSearchComponent
+      }]
   },
   {
     path: "register",

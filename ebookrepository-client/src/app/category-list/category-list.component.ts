@@ -9,6 +9,7 @@ import { CategoryService } from '../service/category.service';
 })
 export class CategoryListComponent implements OnInit {
 
+  public type: string = "";
   public categories = [];
 
   public row = { name: "" };
@@ -19,7 +20,9 @@ export class CategoryListComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private categoryService: CategoryService) {
-      
+      if(JSON.parse(localStorage.getItem('user')) != null){
+        this.type = JSON.parse(localStorage.getItem('user')).type;
+      }
   }
 
   ngOnInit() {
