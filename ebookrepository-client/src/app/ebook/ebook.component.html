@@ -53,7 +53,10 @@
               <label class="form-control-label">Text:</label>
               <textarea rows="14" class="form-control" readonly>{{ eBook.originalText }}</textarea>
             </div>
-            <button *ngIf="type == 'PRETPLATNIK' || type === 'ADMIN'" (click)="download()" class="btn btn-md btn-primary btn-block" type="submit">Download</button>
+            <button *ngIf="type === ''" class="btn btn-md btn-success btn-block" type="submit" routerLink="/login" routerLinkActive="active">Login to download</button>
+            <button *ngIf="type == 'PRETPLATNIK' && categoryName == bookCategoryName" (click)="download()" class="btn btn-md btn-primary btn-block" type="submit">Download</button>
+            <button *ngIf="type === 'ADMIN'" (click)="download()" class="btn btn-md btn-primary btn-block" type="submit">Download</button>
+            
             <button *ngIf="type === 'ADMIN'" class="btn btn-md btn-success btn-block" type="submit" [routerLink]="['edit']" routerLinkActive="active">Edit</button>
             <button *ngIf="type === 'ADMIN'" (click)="delete()" class="btn btn-md btn-danger btn-block" type="submit">Delete</button>
           </div>

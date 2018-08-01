@@ -134,8 +134,11 @@ public class SearchController {
 	public List<EBookDTO> convert(List<ResultData> results) {
 		List<EBookDTO> ebooks = new ArrayList<>();
 		for (ResultData resultData : results) {
-			EBookDTO dto = eBookConverter.convert(resultData);
-			ebooks.add(dto);
+			if(resultData != null) {
+				EBookDTO dto = eBookConverter.convert(resultData);
+				ebooks.add(dto);
+			}
+			
 		}
 		return ebooks;
 	}

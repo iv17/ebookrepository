@@ -117,8 +117,8 @@ public class EBookRepositoryController {
 			)
 	public ResponseEntity<List<EBookDTO>> getAll(Authentication authentication) {
 
-		Iterable<EBook> eBooks = eBookService.findAll();
-
+		Iterable<EBook> eBooks =  eBookService.findAll();
+		
 		List<EBookDTO> response = new ArrayList<>();
 		for (EBook eBook : eBooks) {
 			EBookDTO dto = eBookConverter.convert(eBook);

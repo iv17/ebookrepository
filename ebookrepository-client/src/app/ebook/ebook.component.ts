@@ -11,6 +11,8 @@ import { saveAs } from "file-saver";
 export class EbookComponent implements OnInit {
   
   public type: string = "";
+  public categoryName: string = "";
+  public bookCategoryName: string = "";
   public eBookId;
   public eBook;
 
@@ -20,6 +22,9 @@ export class EbookComponent implements OnInit {
     this.eBookId = route.snapshot.params['eBookId'];
     if(JSON.parse(localStorage.getItem('user')) != null){
       this.type = JSON.parse(localStorage.getItem('user')).type;
+      this.categoryName = JSON.parse(localStorage.getItem('user')).categoryName;
+      console.log(this.categoryName);
+     
     }
   }
 
@@ -28,6 +33,7 @@ export class EbookComponent implements OnInit {
       .subscribe(
         data => {
           this.eBook = data;
+          this.bookCategoryName = this.eBook.categoryName;
           console.log(this.eBook);
         },
         error => {
