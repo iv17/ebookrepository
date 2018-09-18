@@ -95,17 +95,76 @@ export class EbookListSearchComponent implements OnInit {
         }
       );
   }
+  public searchByTextFuzzy() {
+    this.simpleQuery.field = "text";
+    this.simpleQuery.value = this.text;
+    this.eBookRepositoryService.searchFuzzy(this.simpleQuery)
+      .subscribe(
+        data => {
+          this.books = data;
+          console.log(this.books)
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+  public searchByTextPhrase() {
+    this.simpleQuery.field = "text";
+    this.simpleQuery.value = this.text;
+    this.eBookRepositoryService.searchPhrase(this.simpleQuery)
+      .subscribe(
+        data => {
+          this.books = data;
+          console.log(this.books)
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
   public searchBoolean() {
     if(this.operationAND != "") {
       this.advancedQuery.operation = this.operationAND;
     } else {
       this.advancedQuery.operation = this.operationOR;
     }
-    if(this.title != "") {
+    if(this.title != "" && this.author != "") {
       this.advancedQuery.field1 = "title";
       this.advancedQuery.value1 = this.title;
+
+      this.advancedQuery.field2 = "author";
+      this.advancedQuery.value2 = this.author;
     } 
-    if(this.author != "") {
+    if(this.title != "" && this.keywords != "") {
+      this.advancedQuery.field1 = "title";
+      this.advancedQuery.value1 = this.title;
+
+      this.advancedQuery.field2 = "keywords";
+      this.advancedQuery.value2 = this.keywords;
+    } 
+    if(this.title != "" && this.text != "") {
+      this.advancedQuery.field1 = "title";
+      this.advancedQuery.value1 = this.title;
+
+      this.advancedQuery.field2 = "text";
+      this.advancedQuery.value2 = this.text;
+    } 
+    if(this.keywords != "" && this.text != "") {
+      this.advancedQuery.field1 = "keywords";
+      this.advancedQuery.value1 = this.keywords;
+
+      this.advancedQuery.field2 = "text";
+      this.advancedQuery.value2 = this.text;
+    } 
+    if(this.author != "" && this.text != "") {
+      this.advancedQuery.field1 = "author";
+      this.advancedQuery.value1 = this.author;
+
+      this.advancedQuery.field2 = "text";
+      this.advancedQuery.value2 = this.text;
+    } 
+    /*if(this.author != "") {
       if(this.advancedQuery.field1 == "") {
         this.advancedQuery.field1 = "author";
         this.advancedQuery.value1 = this.author;
@@ -119,7 +178,7 @@ export class EbookListSearchComponent implements OnInit {
         this.advancedQuery.field1 = "keywords";
         this.advancedQuery.value1 = this.keywords;
       }
-      else {
+      else if(this.advancedQuery.field1 != "") {
         this.advancedQuery.field2 = "keywords";
         this.advancedQuery.value2 = this.keywords;
       }
@@ -133,7 +192,7 @@ export class EbookListSearchComponent implements OnInit {
         this.advancedQuery.field2 = "text";
         this.advancedQuery.value2 = this.text;
       }
-    }
+    }*/
     console.log(this.advancedQuery);
     this.eBookRepositoryService.searchBoolean(this.advancedQuery)
       .subscribe(

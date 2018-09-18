@@ -59,6 +59,12 @@
           <span class="form-group" class="col-sm-2">
             <button (click)="searchByText()" class="btn btn-primary">searchQuery</button>
           </span>
+          <span class="form-group" class="col-sm-2">
+            <button (click)="searchByTextFuzzy()" class="btn btn-primary">searchFuzzy</button>
+          </span>
+          <span class="form-group" class="col-sm-2">
+            <button (click)="searchByTextPhrase()" class="btn btn-primary">searchPhrase</button>
+          </span>
         </div>
         <br>
         <span class="form-group" class="col-sm-6">
@@ -101,7 +107,10 @@
                     <td>{{book.title}}</td>
                     <td>{{book.author}}</td>
                     <td>{{book.keywords}}</td>
-                    <td>{{book.highlight}}</td>
+                    <!--
+                    <td>{{book.highlight}}</td>-->
+                    <td><div [innerHTML]="book.highlight">
+                    </div></td>
                     <td>
                       <a [routerLink]="[book.id]">
                         <input type="submit" value="Pogledaj" class="btn btn-primary">

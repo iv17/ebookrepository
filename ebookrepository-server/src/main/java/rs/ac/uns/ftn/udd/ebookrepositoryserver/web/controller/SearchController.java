@@ -43,7 +43,9 @@ public class SearchController {
 		org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), text);
 		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 		rh.add(new RequiredHighlight(simpleQuery.getField(), text));
-		List<ResultData> results = resultRetriever.getResults(query, rh);		
+		//List<ResultData> results = resultRetriever.getResults(query, rh);		
+		//List<EBookDTO> ebooks = convert(results);
+		List<ResultData> results = resultRetriever.getResultsWithHighlight(query);
 		List<EBookDTO> ebooks = convert(results);
 		return new ResponseEntity<List<EBookDTO>>(ebooks, HttpStatus.OK);
 	}
@@ -54,7 +56,9 @@ public class SearchController {
 		org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.fuzzy, simpleQuery.getField(), text);
 		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 		rh.add(new RequiredHighlight(simpleQuery.getField(), text));
-		List<ResultData> results = resultRetriever.getResults(query, rh);		
+		//List<ResultData> results = resultRetriever.getResults(query, rh);		
+		//List<EBookDTO> ebooks = convert(results);
+		List<ResultData> results = resultRetriever.getResultsWithHighlight(query);
 		List<EBookDTO> ebooks = convert(results);
 		return new ResponseEntity<List<EBookDTO>>(ebooks, HttpStatus.OK);
 	}
@@ -86,13 +90,16 @@ public class SearchController {
 		org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.phrase, simpleQuery.getField(), text);
 		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 		rh.add(new RequiredHighlight(simpleQuery.getField(), text));
-		List<ResultData> results = resultRetriever.getResults(query, rh);
+		//List<ResultData> results = resultRetriever.getResults(query, rh);
+		//List<EBookDTO> ebooks = convert(results);
+		List<ResultData> results = resultRetriever.getResultsWithHighlight(query);
 		List<EBookDTO> ebooks = convert(results);
 		return new ResponseEntity<List<EBookDTO>>(ebooks, HttpStatus.OK);
 	}
 
 	@PostMapping(value="/search/boolean", consumes="application/json")
 	public ResponseEntity<List<EBookDTO>> searchBoolean(@RequestBody AdvancedQuery advancedQuery) throws Exception {
+		
 		String text1 = SerbianAnalyzer.analize(advancedQuery.getValue1());
 		String text2 = SerbianAnalyzer.analize(advancedQuery.getValue2());
 		org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField1(), text1);
@@ -109,6 +116,8 @@ public class SearchController {
 			builder.must(query1);
 			builder.mustNot(query2);
 		}
+		System.out.println(query1);
+		System.out.println(query2);
 
 		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 		rh.add(new RequiredHighlight(advancedQuery.getField1(), text1));
